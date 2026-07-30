@@ -119,6 +119,7 @@ export const seedLinks: LinkItem[] = [
   { id: "l28", platform: "blogger", label: "Blogger", url: "https://mohammadnahidurrahmanp38.blogspot.com/", featured: false },
   { id: "l29", platform: "barterhub", label: "BarterHub", url: "https://barterhub.in/profile/mohammad-nahidur-rahman-polash", featured: false },
   { id: "l30", platform: "hobbyswap", label: "HobbySwap", url: "https://web.hobbyswap.net/learning/bible/69831312ed7dc55295fbfc39/get-to-know-mohammad-nahidur-rahman-polash", featured: false },
+  { id: "l31", platform: "pinterest", label: "Pinterest", url: "https://www.pinterest.com/mohammadnahidurrahman9300/", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [

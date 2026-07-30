@@ -198,6 +198,12 @@ export const BloggerIcon = (props: IconProps) => (
   </svg>
 );
 
+export const PinterestIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="currentColor">
+    <path d="M12 2.2a9.8 9.8 0 0 0-3.57 18.92c-.08-.8-.16-2.04.03-2.92.18-.8 1.13-4.78 1.13-4.78s-.29-.58-.29-1.43c0-1.34.78-2.34 1.74-2.34.82 0 1.22.62 1.22 1.36 0 .83-.53 2.07-.8 3.22-.23.97.48 1.76 1.44 1.76 1.72 0 3.05-1.82 3.05-4.44 0-2.32-1.67-3.94-4.05-3.94-2.76 0-4.38 2.07-4.38 4.21 0 .83.32 1.72.72 2.21.08.09.09.18.07.28l-.27 1.1c-.04.18-.14.22-.33.13-1.22-.57-1.98-2.35-1.98-3.78 0-3.08 2.24-5.9 6.45-5.9 3.39 0 6.02 2.41 6.02 5.64 0 3.37-2.12 6.08-5.07 6.08-.99 0-1.92-.51-2.24-1.12l-.61 2.32c-.22.85-.81 1.91-1.21 2.56A9.8 9.8 0 1 0 12 2.2Z" />
+  </svg>
+);
+
 /** Phone with a download arrow — used for the APK listing. */
 export const AppIcon = (props: IconProps) => (
   <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
@@ -265,6 +271,7 @@ export const platformIcons: Record<
   tumblr: TumblrIcon,
   vk: VkIcon,
   blogger: BloggerIcon,
+  pinterest: PinterestIcon,
   likee: GlobeIcon,
   google: GoogleIcon,
   deezer: DeezerIcon,
@@ -297,6 +304,7 @@ export const platformColors: Record<string, string> = {
   tumblr: "#36465D",
   vk: "#0077FF",
   blogger: "#FF5722",
+  pinterest: "#E60023",
   likee: "#F8CB00",
   google: "#4285F4",
   deezer: "#A238FF",
