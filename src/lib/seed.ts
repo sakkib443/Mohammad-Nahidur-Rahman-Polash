@@ -104,6 +104,21 @@ export const seedLinks: LinkItem[] = [
   { id: "l16", platform: "blogger", label: "Blogspot", url: "https://mohammadnahidurrahmanpolash87.blogspot.com/2026/03/sheikh-mohammad-nahidur-rahman-polash.html", featured: false },
   { id: "l17", platform: "web", label: "Personal site", url: "https://www.mohammadnahidurrahmanpolash.xyz/", featured: true },
   { id: "l18", platform: "web", label: "Linkeei", url: "https://linkeei.com/MohammadNahidurRahmanPolash", featured: false },
+  // Google share links: l19 resolves to his knowledge panel (kgmid /g/11zbbk_ry_),
+  // l20 to his Google Business listing in Chattogram.
+  { id: "l19", platform: "google", label: "Google Profile", url: "https://share.google/pcB7OEcIOa8XSGnw6", featured: true },
+  { id: "l20", platform: "google", label: "Google Business", url: "https://share.google/sBEoMXQT52wUc2cQv", featured: true },
+  { id: "l21", platform: "aboutme", label: "about.me", url: "https://about.me/mohammadnahidurrhaman", featured: false },
+  { id: "l22", platform: "deezer", label: "Deezer", url: "https://www.deezer.com/artist/159796762", featured: false },
+  { id: "l23", platform: "wordpress", label: "WordPress", url: "https://nahidurrahmanpolasgmail.wordpress.com/2018/06/22/mohamed-nahidur-rahman-polash/", featured: false },
+  { id: "l24", platform: "spacehey", label: "SpaceHey", url: "https://spacehey.com/mohammadnahidurrahmanpolash", featured: false },
+  { id: "l25", platform: "band", label: "BAND", url: "https://www.band.us/band/101355061", featured: false },
+  { id: "l26", platform: "gettr", label: "GETTR", url: "https://gettr.com/user/206954213329752064", featured: false },
+  { id: "l27", platform: "androidapp", label: "Android App", url: "https://appsgeyser.io/18969428/mohammadnahidurrahmanpolash", featured: false },
+  // A second, separate Blogspot site — not the same blog as l16.
+  { id: "l28", platform: "blogger", label: "Blogger", url: "https://mohammadnahidurrahmanp38.blogspot.com/", featured: false },
+  { id: "l29", platform: "barterhub", label: "BarterHub", url: "https://barterhub.in/profile/mohammad-nahidur-rahman-polash", featured: false },
+  { id: "l30", platform: "hobbyswap", label: "HobbySwap", url: "https://web.hobbyswap.net/learning/bible/69831312ed7dc55295fbfc39/get-to-know-mohammad-nahidur-rahman-polash", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [

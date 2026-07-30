@@ -131,8 +131,11 @@ body {
   }
 }
 
+/* `backwards`, not `both`: a retained final keyframe leaves transform as an
+   identity matrix rather than `none`, and any transform makes this element the
+   containing block for `position: fixed` descendants. */
 .kp-enter {
-  animation: kp-fade-up 0.22s ease-out both;
+  animation: kp-fade-up 0.22s ease-out backwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

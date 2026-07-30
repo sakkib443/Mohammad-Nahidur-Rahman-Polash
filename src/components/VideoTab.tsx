@@ -64,17 +64,27 @@ function YoutubeCard({ video }: { video: VideoItem }) {
 }
 
 function FileCard({ video }: { video: VideoItem }) {
+  const [ratio, setRatio] = useState<number | null>(null);
+
   return (
     <div className="kp-card overflow-hidden">
+      {/* No fixed aspect box: `preload="metadata"` gives us the clip's real
+          dimensions and the element is sized to those, so nothing is cropped
+          or letterboxed. intro.mp4, for instance, is square — not 16:9. */}
       <video
         controls
-        preload="none"
+        preload="metadata"
         playsInline
         poster={video.poster || undefined}
-        className="aspect-video w-full bg-black object-cover"
+        style={{ aspectRatio: ratio ? String(ratio) : "16 / 9" }}
+        onLoadedMetadata={(e) => {
+          const v = e.currentTarget;
+          if (v.videoWidth && v.videoHeight) setRatio(v.videoWidth / v.videoHeight);
+        }}
+        className="w-full bg-black"
       >
         <source src={video.file} type="video/mp4" />
-        আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
+        Your browser does not support video playback.
       </video>
       <div className="px-3 py-2.5">
         <p className="text-[13px] font-medium text-ink">{video.title}</p>
@@ -96,7 +106,7 @@ export default function VideoTab({
   const usable = videos.filter((v) => v.youtubeId.trim() || v.file.trim());
 
   if (usable.length === 0) {
-    return <EmptyState text="এখনো কোনো ভিডিও যোগ করা হয়নি · No videos yet" />;
+    return <EmptyState text="No videos yet." />;
   }
 
   return (
@@ -116,7 +126,7 @@ export default function VideoTab({
           rel="noopener noreferrer"
           className="block rounded-full bg-[#FF0000] py-2.5 text-center text-[13px] font-semibold text-white active:opacity-90"
         >
-          YouTube চ্যানেল দেখুন
+          Visit YouTube channel
         </a>
       ) : null}
     </section>

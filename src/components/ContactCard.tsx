@@ -31,14 +31,14 @@ export default function ContactCard() {
       const json = await res.json();
 
       if (!res.ok || !json.ok) {
-        setError(json.error || "পাঠানো যায়নি · Could not send");
+        setError(json.error || "Could not send your message.");
         setStatus("error");
         return;
       }
       form.reset();
       setStatus("sent");
     } catch {
-      setError("নেটওয়ার্ক সমস্যা · Network error");
+      setError("Network error. Please try again.");
       setStatus("error");
     }
   }
@@ -62,14 +62,14 @@ export default function ContactCard() {
           name="name"
           required
           maxLength={80}
-          placeholder="আপনার নাম · Your name"
+          placeholder="Your name"
           className="w-full rounded-lg border border-line bg-surface-2 px-3 py-2.5 text-[13px] text-ink outline-none placeholder:text-muted focus:border-brand"
         />
         <input
           name="email"
           type="email"
           maxLength={120}
-          placeholder="ইমেইল (ঐচ্ছিক) · Email (optional)"
+          placeholder="Email (optional)"
           className="w-full rounded-lg border border-line bg-surface-2 px-3 py-2.5 text-[13px] text-ink outline-none placeholder:text-muted focus:border-brand"
         />
         <textarea
@@ -77,7 +77,7 @@ export default function ContactCard() {
           required
           rows={4}
           maxLength={2000}
-          placeholder="আপনার বার্তা · Your message"
+          placeholder="Your message"
           className="w-full resize-none rounded-lg border border-line bg-surface-2 px-3 py-2.5 text-[13px] text-ink outline-none placeholder:text-muted focus:border-brand"
         />
 
@@ -87,12 +87,12 @@ export default function ContactCard() {
           className="flex w-full items-center justify-center gap-2 rounded-full bg-brand py-2.5 text-[13px] font-semibold text-white disabled:opacity-60"
         >
           <MailIcon width={16} height={16} />
-          {status === "sending" ? "পাঠানো হচ্ছে…" : "বার্তা পাঠান · Send"}
+          {status === "sending" ? "Sending…" : "Send message"}
         </button>
 
         {status === "sent" && (
           <p className="text-center text-[12px] font-medium text-accent">
-            ✓ বার্তা পাঠানো হয়েছে · Message sent
+            ✓ Message sent
           </p>
         )}
         {status === "error" && (

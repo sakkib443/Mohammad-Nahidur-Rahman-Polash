@@ -131,6 +131,48 @@ export function Row({
   );
 }
 
+/** Uploads a clip to /media and hands the resulting path back. */
+export function VideoUpload({
+  onUploaded,
+  flash,
+}: {
+  onUploaded: (src: string) => void;
+  flash: (text: string) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-1 block text-[11px] font-medium text-muted">
+        অথবা ভিডিও ফাইল আপলোড করুন (সর্বোচ্চ ৬৪MB)
+      </span>
+      <input
+        type="file"
+        accept="video/mp4,video/webm,video/quicktime"
+        onChange={async (e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          const input = e.currentTarget;
+
+          const form = new FormData();
+          form.append("files", file);
+          flash("আপলোড হচ্ছে…");
+
+          const res = await fetch("/api/upload", { method: "POST", body: form });
+          const json = await res.json().catch(() => ({ ok: false }));
+          input.value = "";
+
+          if (!json.ok || json.saved.length === 0) {
+            flash(`✕ ${json.error || json.skipped?.[0] || "Upload failed"}`);
+            return;
+          }
+          onUploaded(json.saved[0]);
+          flash("✓ ভিডিও আপলোড হয়েছে — এবার সেভ করুন");
+        }}
+        className="w-full text-[12px] text-muted"
+      />
+    </label>
+  );
+}
+
 export function move<T>(list: T[], from: number, to: number): T[] {
   if (to < 0 || to >= list.length) return list;
   const next = [...list];

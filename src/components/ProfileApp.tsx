@@ -5,17 +5,18 @@ import type { AboutRow, Content, Fact } from "@/lib/types";
 import { AboutCard, FactGrid, OverviewCard } from "./Cards";
 import BooksSection from "./BooksSection";
 import ContactCard from "./ContactCard";
-import Gallery from "./Gallery";
+import FloatingActions from "./FloatingActions";
+import GalleryPreview from "./GalleryPreview";
+import GalleryTab from "./GalleryTab";
 import HeroCarousel from "./HeroCarousel";
 import Lightbox from "./Lightbox";
 import LinksSection from "./LinksSection";
 import NewsTab from "./NewsTab";
 import ReelsTab from "./ReelsTab";
 import ThemeToggle from "./ThemeToggle";
-import VideoTab from "./VideoTab";
 import { EyeIcon, ShareIcon, VerifiedIcon } from "./icons";
 
-const TABS = ["Overview", "Video", "Reels", "News"] as const;
+const TABS = ["Overview", "Gallery", "Reels", "News"] as const;
 type Tab = (typeof TABS)[number];
 
 export default function ProfileApp({
@@ -131,12 +132,21 @@ export default function ProfileApp({
       });
     }
 
-    // The Bengali name and role no longer live in the header, so surface them here.
-    if (profile.nameBn && !hasLabel(/^বাংলা নাম$/)) {
-      rows.push({ id: "auto-name-bn", label: "বাংলা নাম", value: profile.nameBn });
+    // The Bengali name and role no longer live in the header, so surface them
+    // here. Labels stay English like every other row; only the values are Bangla.
+    if (profile.nameBn && !hasLabel(/^name \(bangla\)$/i)) {
+      rows.push({
+        id: "auto-name-bn",
+        label: "Name (Bangla)",
+        value: profile.nameBn,
+      });
     }
-    if (profile.headlineBn && !hasLabel(/^পেশা$/)) {
-      rows.push({ id: "auto-role-bn", label: "পেশা", value: profile.headlineBn });
+    if (profile.headlineBn && !hasLabel(/^role \(bangla\)$/i)) {
+      rows.push({
+        id: "auto-role-bn",
+        label: "Role (Bangla)",
+        value: profile.headlineBn,
+      });
     }
 
     return rows;
@@ -205,7 +215,7 @@ export default function ProfileApp({
 
         {copied && (
           <p className="bg-accent/10 py-1 text-center text-[11px] font-medium text-accent">
-            লিংক কপি হয়েছে · Link copied
+            Link copied
           </p>
         )}
       </header>
@@ -223,12 +233,23 @@ export default function ProfileApp({
             <AboutCard rows={about} />
             <BooksSection books={books} />
             <LinksSection links={links} />
-            <Gallery photos={gallery} name={profile.name} />
+            <GalleryPreview
+              photos={gallery}
+              name={profile.name}
+              onSeeAll={() => selectTab("Gallery")}
+            />
             <ContactCard />
           </>
         )}
 
-        {tab === "Video" && <VideoTab videos={videos} channelUrl={youtube} />}
+        {tab === "Gallery" && (
+          <GalleryTab
+            photos={gallery}
+            videos={videos}
+            name={profile.name}
+            channelUrl={youtube}
+          />
+        )}
         {tab === "Reels" && <ReelsTab reels={reels} />}
         {tab === "News" && <NewsTab news={news} />}
       </main>
@@ -247,6 +268,10 @@ export default function ProfileApp({
           <p className="mt-0.5 text-[11px] text-muted">{profile.location}</p>
         ) : null}
       </footer>
+
+      {/* Outside <main> on purpose: the .kp-enter animation puts a transform on
+          it mid-run, which would re-anchor these fixed elements to its box. */}
+      <FloatingActions phone={profile.phone} />
 
       {hero !== null && hero >= 0 && (
         <Lightbox

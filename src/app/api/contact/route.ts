@@ -40,7 +40,7 @@ export async function POST(request: Request) {
   const previous = lastSeen.get(ip) ?? 0;
   if (now - previous < WINDOW_MS) {
     return Response.json(
-      { ok: false, error: "একটু পরে আবার চেষ্টা করুন / Please wait a moment" },
+      { ok: false, error: "Please wait a moment before sending again." },
       { status: 429 },
     );
   }
@@ -51,13 +51,13 @@ export async function POST(request: Request) {
 
   if (!name || !text) {
     return Response.json(
-      { ok: false, error: "নাম ও বার্তা দিন / Name and message are required" },
+      { ok: false, error: "Name and message are required." },
       { status: 400 },
     );
   }
   if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return Response.json(
-      { ok: false, error: "ইমেইল ঠিক নয় / Invalid email" },
+      { ok: false, error: "That email address doesn't look right." },
       { status: 400 },
     );
   }

@@ -20,8 +20,7 @@ export default function NewsTab({ news }: { news: NewsItem[] }) {
         <div className="kp-card px-3 py-3">
           <p className="text-[13px] font-semibold text-ink">Latest News</p>
           <p className="mt-1 text-[12.5px] text-muted">
-            নতুন খবরের জন্য অপেক্ষা করুন ·{" "}
-            <span className="text-brand">Stay tuned for updates.</span>
+            Stay tuned for <span className="text-brand">updates</span>.
           </p>
         </div>
       </div>

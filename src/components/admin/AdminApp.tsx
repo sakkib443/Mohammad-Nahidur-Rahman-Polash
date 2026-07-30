@@ -12,7 +12,7 @@ import type {
   ReelItem,
   VideoItem,
 } from "@/lib/types";
-import { Btn, Field, Row, move, uid } from "./ui";
+import { Btn, Field, Row, VideoUpload, move, uid } from "./ui";
 
 const SECTIONS = [
   "Profile",
@@ -242,6 +242,7 @@ export default function AdminApp() {
             videos={data.videos}
             onChange={(v) => set("videos", v)}
             onSave={() => save("/api/videos", data.videos, "ভিডিও")}
+            flash={flash}
           />
         )}
         {section === "Reels" && (
@@ -249,6 +250,7 @@ export default function AdminApp() {
             reels={data.reels}
             onChange={(r) => set("reels", r)}
             onSave={() => save("/api/reels", data.reels, "রিলস")}
+            flash={flash}
           />
         )}
         {section === "News" && (
@@ -397,7 +399,9 @@ function ProfileEditor({
 const PLATFORMS = [
   "facebook", "youtube", "instagram", "linkedin", "tiktok", "x", "telegram",
   "threads", "github", "reddit", "snapchat", "vimeo", "tumblr", "vk",
-  "blogger", "likee", "web",
+  "blogger", "likee", "google", "whatsapp", "deezer", "wordpress",
+  "aboutme", "spacehey", "band", "gettr", "androidapp", "barterhub",
+  "hobbyswap", "web",
 ];
 
 function LinksEditor({
@@ -442,7 +446,7 @@ function LinksEditor({
               checked={l.featured}
               onChange={(e) => patch(l.id, { featured: e.target.checked })}
             />
-            <span className="text-[12.5px] text-ink">উপরের আইকন সারিতে দেখাবে</span>
+            <span className="text-[12.5px] text-ink">গ্রিডে আগে দেখাবে</span>
           </label>
         </Row>
       ))}
@@ -460,10 +464,12 @@ function VideosEditor({
   videos,
   onChange,
   onSave,
+  flash,
 }: {
   videos: VideoItem[];
   onChange: (v: VideoItem[]) => void;
   onSave: () => void;
+  flash: (text: string) => void;
 }) {
   const patch = (id: string, part: Partial<VideoItem>) =>
     onChange(videos.map((v) => (v.id === id ? { ...v, ...part } : v)));
@@ -472,7 +478,8 @@ function VideosEditor({
     <div className="space-y-2">
       <p className="text-[11.5px] leading-relaxed text-muted">
         YouTube ভিডিওর জন্য শুধু ভিডিও আইডি দিন (youtu.be/<b>XXXXXXXX</b>)। নিজের
-        আপলোড করা ফাইল হলে <code>/media/file.mp4</code> পাথ দিন।
+        ফাইল হলে নিচের বাটন দিয়ে আপলোড করুন — ভিডিও তার নিজের মাপেই দেখাবে,
+        কোনো দিক কাটা যাবে না।
       </p>
       {videos.map((v, i) => (
         <Row
@@ -485,6 +492,7 @@ function VideosEditor({
           <Field label="Title" value={v.title} onChange={(t) => patch(v.id, { title: t })} />
           <Field label="YouTube video id" value={v.youtubeId} onChange={(t) => patch(v.id, { youtubeId: t })} placeholder="dQw4w9WgXcQ" />
           <Field label="Or file path" value={v.file} onChange={(t) => patch(v.id, { file: t })} placeholder="/media/intro.mp4" />
+          <VideoUpload onUploaded={(src) => patch(v.id, { file: src, youtubeId: "" })} flash={flash} />
           <Field label="Poster image" value={v.poster} onChange={(t) => patch(v.id, { poster: t })} placeholder="/gallery/photo-19.jpg" />
           <Field label="Date" value={v.date} onChange={(t) => patch(v.id, { date: t })} placeholder="2026-07-30" />
         </Row>
@@ -503,16 +511,26 @@ function ReelsEditor({
   reels,
   onChange,
   onSave,
+  flash,
 }: {
   reels: ReelItem[];
   onChange: (r: ReelItem[]) => void;
   onSave: () => void;
+  flash: (text: string) => void;
 }) {
   const patch = (id: string, part: Partial<ReelItem>) =>
     onChange(reels.map((r) => (r.id === id ? { ...r, ...part } : r)));
 
   return (
     <div className="space-y-2">
+      <p className="text-[11.5px] leading-relaxed text-muted">
+        ওয়েবসাইটেই মডালে চালাতে হলে দুটো উপায় — ভিডিও ফাইল আপলোড করুন,
+        অথবা <b>একক ভিডিওর</b> লিংক দিন (যেমন{" "}
+        <code>tiktok.com/@user/video/123…</code>,{" "}
+        <code>instagram.com/reel/ABC…</code>, YouTube Shorts)। প্রোফাইল লিংক
+        (<code>tiktok.com/@user</code>) দিলে TikTok/Instagram embed করতে দেয় না,
+        তাই সেটা অ্যাপে খুলবে।
+      </p>
       {reels.map((r, i) => (
         <Row
           key={r.id}
@@ -537,6 +555,7 @@ function ReelsEditor({
           <Field label="URL" value={r.url} onChange={(v) => patch(r.id, { url: v })} />
           <Field label="Thumbnail" value={r.thumb} onChange={(v) => patch(r.id, { thumb: v })} placeholder="/gallery/photo-05.jpg" />
           <Field label="Or local file" value={r.file} onChange={(v) => patch(r.id, { file: v })} placeholder="/media/reel.mp4" />
+          <VideoUpload onUploaded={(src) => patch(r.id, { file: src })} flash={flash} />
         </Row>
       ))}
       <Btn onClick={() => onChange([...reels, { id: uid(), title: "", platform: "tiktok", url: "", thumb: "", file: "" }])}>

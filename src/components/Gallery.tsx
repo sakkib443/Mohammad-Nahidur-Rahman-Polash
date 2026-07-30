@@ -21,12 +21,8 @@ export default function Gallery({
   const visible = photos.slice(0, shown);
 
   return (
-    <section className="pt-5">
-      <h2 className="px-4 pb-2 text-[13px] font-semibold text-ink">
-        Gallery{" "}
-        <span className="font-normal text-muted">({photos.length})</span>
-      </h2>
-
+    // No heading: the Gallery tab's own sub-tabs already label and count this.
+    <section className="pt-4">
       <div className="grid grid-cols-2 gap-3 px-4">
         {visible.map((p, i) => (
           <button
@@ -59,7 +55,7 @@ export default function Gallery({
             onClick={() => setShown((s) => s + STEP)}
             className="w-full rounded-full border border-line bg-surface-2 py-2.5 text-[12.5px] font-medium text-brand active:opacity-70"
           >
-            আরও ছবি দেখুন · Load more ({photos.length - shown})
+            Load more ({photos.length - shown})
           </button>
         </div>
       )}

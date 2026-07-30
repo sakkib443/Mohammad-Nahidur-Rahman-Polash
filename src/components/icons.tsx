@@ -47,6 +47,18 @@ export const CloseIcon = (props: IconProps) => (
   </svg>
 );
 
+export const ArrowUpIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={2.1} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 19V5m0 0-6 6m6-6 6 6" />
+  </svg>
+);
+
+export const WhatsappIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="currentColor">
+    <path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.45 1.32 4.95L2 22l5.2-1.36a9.9 9.9 0 0 0 4.84 1.24h.01c5.49 0 9.95-4.46 9.95-9.96C22 6.46 17.53 2 12.04 2Zm0 18.24h-.01c-1.55 0-3.07-.42-4.4-1.2l-.32-.19-3.27.86.87-3.19-.2-.33a8.26 8.26 0 0 1-1.27-4.4c0-4.56 3.72-8.28 8.29-8.28 2.21 0 4.29.86 5.85 2.43a8.23 8.23 0 0 1 2.43 5.86c0 4.57-3.72 8.28-8.28 8.28Zm4.54-6.2c-.25-.13-1.47-.72-1.7-.8-.23-.09-.4-.13-.56.12-.17.25-.66.8-.81.97-.15.16-.3.19-.54.06a6.72 6.72 0 0 1-2-1.23 7.4 7.4 0 0 1-1.37-1.71c-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.41-.56-.42h-.48c-.16 0-.42.06-.64.31-.22.25-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.17 1.69 2.58 4.1 3.62.57.25 1.02.39 1.37.5.57.19 1.09.16 1.5.1.46-.07 1.42-.58 1.62-1.15.2-.56.2-1.05.14-1.15-.06-.1-.22-.16-.47-.29Z" />
+  </svg>
+);
+
 export const ChevronIcon = (props: IconProps) => (
   <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
     <path d="m9 5 7 7-7 7" />
@@ -186,6 +198,42 @@ export const BloggerIcon = (props: IconProps) => (
   </svg>
 );
 
+/** Phone with a download arrow — used for the APK listing. */
+export const AppIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+    <rect x="6" y="2.6" width="12" height="18.8" rx="2.6" />
+    <path d="M12 7.4v6.4m0 0-2.5-2.5M12 13.8l2.5-2.5" />
+  </svg>
+);
+
+export const DeezerIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="currentColor">
+    <rect x="14.5" y="5.6" width="6.5" height="2.7" rx="0.6" />
+    <rect x="14.5" y="10" width="6.5" height="2.7" rx="0.6" />
+    <rect x="7.2" y="10" width="6.5" height="2.7" rx="0.6" />
+    <rect x="14.5" y="14.4" width="6.5" height="2.7" rx="0.6" />
+    <rect x="7.2" y="14.4" width="6.5" height="2.7" rx="0.6" />
+    <rect x="3" y="14.4" width="3.5" height="2.7" rx="0.6" />
+  </svg>
+);
+
+export const WordpressIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="9" />
+    <path d="m6.9 8.4 2.5 7.2L12 9.6l2.6 6 2.5-7.2" />
+  </svg>
+);
+
+/** Single-colour "G" — the tile behind it already carries Google's blue. */
+export const GoogleIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="currentColor">
+    <path d="M12.24 10.4v3.35h4.77a4.1 4.1 0 0 1-1.78 2.68l2.87 2.23c1.68-1.55 2.64-3.83 2.64-6.54 0-.63-.06-1.24-.16-1.82h-8.34Z" />
+    <path d="M12 21.5c2.4 0 4.42-.79 5.9-2.15l-2.88-2.23c-.8.54-1.82.85-3.02.85-2.32 0-4.29-1.56-4.99-3.67l-2.96 2.29A8.94 8.94 0 0 0 12 21.5Z" />
+    <path d="M7.01 14.3a5.37 5.37 0 0 1 0-3.43L4.05 8.58a8.96 8.96 0 0 0 0 8.02l2.96-2.3Z" />
+    <path d="M12 6.8c1.31 0 2.48.45 3.4 1.33l2.55-2.55C16.41 4.15 14.39 3.3 12 3.3a8.94 8.94 0 0 0-7.95 4.88l2.96 2.29C7.71 8.36 9.68 6.8 12 6.8Z" />
+  </svg>
+);
+
 export const GlobeIcon = (props: IconProps) => (
   <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.85}>
     <circle cx="12" cy="12" r="9" />
@@ -208,6 +256,7 @@ export const platformIcons: Record<
   x: XIcon,
   twitter: XIcon,
   telegram: TelegramIcon,
+  whatsapp: WhatsappIcon,
   threads: ThreadsIcon,
   github: GithubIcon,
   reddit: RedditIcon,
@@ -217,6 +266,16 @@ export const platformIcons: Record<
   vk: VkIcon,
   blogger: BloggerIcon,
   likee: GlobeIcon,
+  google: GoogleIcon,
+  deezer: DeezerIcon,
+  wordpress: WordpressIcon,
+  aboutme: GlobeIcon,
+  androidapp: AppIcon,
+  spacehey: GlobeIcon,
+  band: GlobeIcon,
+  gettr: GlobeIcon,
+  barterhub: GlobeIcon,
+  hobbyswap: GlobeIcon,
   web: GlobeIcon,
 };
 
@@ -229,6 +288,7 @@ export const platformColors: Record<string, string> = {
   x: "#0F1419",
   twitter: "#0F1419",
   telegram: "#26A5E4",
+  whatsapp: "#25D366",
   threads: "#000000",
   github: "#181717",
   reddit: "#FF4500",
@@ -238,6 +298,16 @@ export const platformColors: Record<string, string> = {
   vk: "#0077FF",
   blogger: "#FF5722",
   likee: "#F8CB00",
+  google: "#4285F4",
+  deezer: "#A238FF",
+  wordpress: "#21759B",
+  aboutme: "#00A98F",
+  androidapp: "#3DDC84",
+  spacehey: "#4A76A8",
+  band: "#00C73C",
+  gettr: "#E5222C",
+  barterhub: "#0F9D8C",
+  hobbyswap: "#7C4DFF",
   web: "#1a73e8",
 };
 
