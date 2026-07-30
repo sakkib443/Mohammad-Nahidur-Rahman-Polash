@@ -20,13 +20,15 @@ export const seedProfile: Profile = {
   verified: true,
   birthDate: "1993-07-14",
   birthPlace: "Bangladesh",
-  avatar: "/gallery/photo-47.jpg",
+  // Square headshot crop — used for Open Graph / Twitter share previews.
+  avatar: "/avatar.jpg",
+  // Client-selected opening slides, in the order they sent them.
   heroImages: [
-    "/gallery/photo-47.jpg",
-    "/gallery/photo-19.jpg",
-    "/gallery/photo-07.jpg",
     "/gallery/photo-05.jpg",
-    "/gallery/photo-37.jpg",
+    "/gallery/photo-04.jpg",
+    "/gallery/photo-02.jpg",
+    "/gallery/photo-03.jpg",
+    "/gallery/photo-07.jpg",
   ],
   overview:
     "Mohammad Nahidur Rahman Polash (born 14 July 1993) is a Bangladeshi safety officer and author known for his work in workplace health, hazard identification, risk assessment and occupational safety standards. Based in Chattogram, he has published informational material and guides on safety practices and preventive workplace measures, and runs a YouTube channel sharing practical occupational health and safety guidance for workers.",

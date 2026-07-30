@@ -80,7 +80,9 @@ export default function HeroCarousel({
               key={`${src}-${i}`}
               type="button"
               onClick={() => onOpen?.(src)}
-              className="relative aspect-[5/4] w-full shrink-0"
+              // 4:5 matches the portrait photos the client picked — a landscape
+              // frame cropped their heads off.
+              className="relative aspect-[4/5] w-full shrink-0"
               aria-label={`${alt} — photo ${i + 1} of ${images.length}`}
             >
               <Image

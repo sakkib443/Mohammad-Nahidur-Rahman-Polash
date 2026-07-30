@@ -44,7 +44,8 @@ export async function generateMetadata(): Promise<Metadata> {
       url: "/",
       siteName: p.name,
       locale: "bn_BD",
-      images: p.avatar ? [{ url: p.avatar, width: 1080, height: 1080 }] : [],
+      // /avatar.jpg is the 600×600 headshot crop generated from the press photo.
+      images: p.avatar ? [{ url: p.avatar, width: 600, height: 600 }] : [],
     },
     twitter: {
       card: "summary_large_image",
