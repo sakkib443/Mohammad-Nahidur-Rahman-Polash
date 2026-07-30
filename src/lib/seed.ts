@@ -12,6 +12,10 @@ import type {
  * after which the admin panel (or the JSON files themselves) is the source of truth.
  */
 
+/** Google Books listing — the destination for both the news card and the book entry. */
+const BOOK_URL =
+  "https://books.google.com.bd/books/about/When_the_Fireflies_Remembered_Our_Names.html?id=tOf0EQAAQBAJ&redir_esc=y";
+
 export const seedProfile: Profile = {
   name: "Mohammad Nahidur Rahman Polash",
   nameBn: "মোহাম্মদ নাহিদুর রহমান পলাশ",
@@ -71,10 +75,10 @@ export const seedBooks: BookItem[] = [
   {
     id: "b1",
     title: "When the Fireflies Remembered Our Names",
-    subtitle: "Novel",
-    year: "",
-    publisher: "Google Books",
-    url: "https://share.google/diqwwf057IijhCCxU",
+    subtitle: "Novel · 128 pages",
+    year: "2026",
+    publisher: "Skillworldhub",
+    url: BOOK_URL,
     cover: "",
     description:
       "A heartfelt novel about the unbreakable bond between a father and his daughter — a journey through love, loss, hope and the quiet moments that define a lifetime.",
@@ -155,7 +159,7 @@ export const seedNews: NewsItem[] = [
       "Bangladeshi Safety Officer Mohammad Nahidur Rahman Polash Promotes Workplace Safety Through YouTube",
     source: "The Bengalee",
     date: "2026-04-30",
-    url: "https://www.thebengalee.com",
+    url: BOOK_URL,
     image: "/gallery/photo-47.jpg",
     excerpt:
       "The Bengalee features Chattogram-based Safety Officer Mohammad Nahidur Rahman Polash and the workplace-safety awareness content he publishes on YouTube.",
