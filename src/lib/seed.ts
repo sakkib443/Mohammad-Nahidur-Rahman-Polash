@@ -1,0 +1,161 @@
+import type {
+  BookItem,
+  LinkItem,
+  NewsItem,
+  Profile,
+  ReelItem,
+  VideoItem,
+} from "./types";
+
+/**
+ * First-run content. Copied into `data/*.json` the first time the server boots,
+ * after which the admin panel (or the JSON files themselves) is the source of truth.
+ */
+
+export const seedProfile: Profile = {
+  name: "Mohammad Nahidur Rahman Polash",
+  nameBn: "মোহাম্মদ নাহিদুর রহমান পলাশ",
+  headline: "Safety Officer & Author",
+  headlineBn: "সেফটি অফিসার ও লেখক",
+  verified: true,
+  birthDate: "1993-07-14",
+  birthPlace: "Bangladesh",
+  avatar: "/gallery/photo-47.jpg",
+  heroImages: [
+    "/gallery/photo-47.jpg",
+    "/gallery/photo-19.jpg",
+    "/gallery/photo-07.jpg",
+    "/gallery/photo-05.jpg",
+    "/gallery/photo-37.jpg",
+  ],
+  overview:
+    "Mohammad Nahidur Rahman Polash (born 14 July 1993) is a Bangladeshi safety officer and author known for his work in workplace health, hazard identification, risk assessment and occupational safety standards. Based in Chattogram, he has published informational material and guides on safety practices and preventive workplace measures, and runs a YouTube channel sharing practical occupational health and safety guidance for workers.",
+  overviewBn:
+    "মোহাম্মদ নাহিদুর রহমান পলাশ (জন্ম ১৪ জুলাই ১৯৯৩) একজন বাংলাদেশি সেফটি অফিসার ও লেখক। কর্মক্ষেত্রের স্বাস্থ্য, ঝুঁকি চিহ্নিতকরণ ও নিরূপণ এবং পেশাগত নিরাপত্তা মানদণ্ড নিয়ে কাজের জন্য তিনি পরিচিত। চট্টগ্রামে অবস্থানরত এই পেশাজীবী নিরাপত্তা অনুশীলন ও দুর্ঘটনা প্রতিরোধ বিষয়ে তথ্যভিত্তিক লেখা ও গাইড প্রকাশ করেছেন, পাশাপাশি নিজের ইউটিউব চ্যানেলে শ্রমিকদের জন্য বাস্তবভিত্তিক পেশাগত স্বাস্থ্য ও নিরাপত্তা বিষয়ক পরামর্শ দিয়ে থাকেন।",
+  facts: [
+    { id: "f1", label: "Profession", value: "Safety Officer", note: "Occupational Health & Safety" },
+    { id: "f2", label: "Based in", value: "Chattogram", note: "Bangladesh" },
+    { id: "f3", label: "Focus", value: "Workplace Safety", note: "Hazard identification & risk assessment" },
+    { id: "f4", label: "Also", value: "Author", note: "Safety guides & fiction" },
+    { id: "f5", label: "Featured in", value: "The Bengalee", note: "April 30, 2026" },
+  ],
+  about: [
+    { id: "a1", label: "Full name", value: "Sheikh Mohammad Nahidur Rahman Polash" },
+    { id: "a2", label: "Also known as", value: "Polash" },
+    { id: "a3", label: "Profession", value: "Safety Officer, Author" },
+    { id: "a4", label: "Location", value: "Chattogram, Bangladesh" },
+    { id: "a5", label: "Education", value: "Qatar University" },
+    { id: "a6", label: "Languages", value: "Bengali, English" },
+    { id: "a7", label: "Website", value: "mohammadnahidurrahmanpolash.xyz" },
+  ],
+  email: "",
+  phone: "",
+  location: "Chattogram, Bangladesh",
+  website: "https://www.mohammadnahidurrahmanpolash.xyz/",
+  seoKeywords: [
+    "Mohammad Nahidur Rahman Polash",
+    "মোহাম্মদ নাহিদুর রহমান পলাশ",
+    "Safety Officer Bangladesh",
+    "Nahidur Rahman Polash",
+    "Chattogram Safety Officer",
+    "workplace safety Bangladesh",
+    "Bangladeshi safety officer and author",
+    "occupational safety standards",
+    "hazard identification risk assessment",
+  ],
+};
+
+export const seedBooks: BookItem[] = [
+  {
+    id: "b1",
+    title: "When the Fireflies Remembered Our Names",
+    subtitle: "Novel",
+    year: "",
+    publisher: "Google Books",
+    url: "https://share.google/diqwwf057IijhCCxU",
+    cover: "",
+    description:
+      "A heartfelt novel about the unbreakable bond between a father and his daughter — a journey through love, loss, hope and the quiet moments that define a lifetime.",
+  },
+];
+
+export const seedLinks: LinkItem[] = [
+  { id: "l1", platform: "facebook", label: "Facebook", url: "https://www.facebook.com/share/1E9MXL4vZF/", featured: true },
+  { id: "l2", platform: "youtube", label: "YouTube", url: "https://www.youtube.com/@mohammadnahidurrahman2269", featured: true },
+  { id: "l3", platform: "instagram", label: "Instagram", url: "https://www.instagram.com/moha.mmadnahidurrahmanpolash", featured: true },
+  { id: "l4", platform: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/mohammad-nahidur-rahman-polash-9790393b7", featured: true },
+  { id: "l5", platform: "tiktok", label: "TikTok", url: "https://www.tiktok.com/@mohammadnahidurra03", featured: true },
+  { id: "l6", platform: "x", label: "X (Twitter)", url: "https://x.com/polash92149", featured: true },
+  { id: "l7", platform: "telegram", label: "Telegram", url: "https://t.me/MohammadNahidurRhamanPolash", featured: true },
+  { id: "l8", platform: "threads", label: "Threads", url: "https://www.threads.com/@moham_madnahidurrahmanpolash", featured: false },
+  { id: "l9", platform: "github", label: "GitHub", url: "https://github.com/MohammadNahidurRhamanPolash", featured: false },
+  { id: "l10", platform: "reddit", label: "Reddit", url: "https://www.reddit.com/u/mohammadpolash1024", featured: false },
+  { id: "l11", platform: "tumblr", label: "Tumblr", url: "https://www.tumblr.com/mohammadp", featured: false },
+  { id: "l12", platform: "vimeo", label: "Vimeo", url: "https://vimeo.com/user255933032", featured: false },
+  { id: "l13", platform: "snapchat", label: "Snapchat", url: "https://www.snapchat.com/add/mohammadnahidur", featured: false },
+  { id: "l14", platform: "vk", label: "VK", url: "https://vk.ru/id1112130435", featured: false },
+  { id: "l15", platform: "likee", label: "Likee", url: "https://l.likee.video/p/iWmSJD", featured: false },
+  { id: "l16", platform: "blogger", label: "Blogspot", url: "https://mohammadnahidurrahmanpolash87.blogspot.com/2026/03/sheikh-mohammad-nahidur-rahman-polash.html", featured: false },
+  { id: "l17", platform: "web", label: "Personal site", url: "https://www.mohammadnahidurrahmanpolash.xyz/", featured: true },
+  { id: "l18", platform: "web", label: "Linkeei", url: "https://linkeei.com/MohammadNahidurRahmanPolash", featured: false },
+];
+
+export const seedVideos: VideoItem[] = [
+  {
+    id: "v1",
+    title: "Mohammad Nahidur Rahman Polash — Intro",
+    youtubeId: "",
+    file: "/media/intro.mp4",
+    poster: "/gallery/photo-19.jpg",
+    date: "2026-07-30",
+  },
+];
+
+export const seedReels: ReelItem[] = [
+  {
+    id: "r1",
+    title: "TikTok — @mohammadnahidurra03",
+    platform: "tiktok",
+    url: "https://www.tiktok.com/@mohammadnahidurra03",
+    thumb: "/gallery/photo-05.jpg",
+    file: "",
+  },
+  {
+    id: "r2",
+    title: "TikTok — short clips",
+    platform: "tiktok",
+    url: "https://vm.tiktok.com/ZS9N44cRDJ8ew-PjGdT/",
+    thumb: "/gallery/photo-03.jpg",
+    file: "",
+  },
+  {
+    id: "r3",
+    title: "Likee video",
+    platform: "likee",
+    url: "https://l.likee.video/p/iWmSJD",
+    thumb: "/gallery/photo-07.jpg",
+    file: "",
+  },
+  {
+    id: "r4",
+    title: "Instagram profile",
+    platform: "instagram",
+    url: "https://www.instagram.com/moha.mmadnahidurrahmanpolash",
+    thumb: "/gallery/photo-02.jpg",
+    file: "",
+  },
+];
+
+export const seedNews: NewsItem[] = [
+  {
+    id: "n1",
+    title:
+      "Bangladeshi Safety Officer Mohammad Nahidur Rahman Polash Promotes Workplace Safety Through YouTube",
+    source: "The Bengalee",
+    date: "2026-04-30",
+    url: "https://www.thebengalee.com",
+    image: "/gallery/photo-47.jpg",
+    excerpt:
+      "The Bengalee features Chattogram-based Safety Officer Mohammad Nahidur Rahman Polash and the workplace-safety awareness content he publishes on YouTube.",
+  },
+];

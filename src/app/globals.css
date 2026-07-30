@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+/* `dark:` must follow the .dark class the theme toggle sets, not the OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------
+   Google Knowledge-Panel palette. The whole site is a single
+   mobile-width column, so every token is tuned for a ~440px canvas.
+   --------------------------------------------------------------- */
+:root {
+  --kp-backdrop: #e9eef7;
+  --kp-surface: #ffffff;
+  --kp-surface-2: #f8f9fb;
+  --kp-line: #dadce0;
+  --kp-text: #202124;
+  --kp-muted: #5f6368;
+  --kp-blue: #1a73e8;
+  --kp-blue-soft: #e8f0fe;
+  --kp-green: #0b8043;
+  --kp-amber: #b06000;
+  --kp-shadow: 0 1px 2px rgba(60, 64, 67, 0.15), 0 1px 3px rgba(60, 64, 67, 0.08);
+}
+
+.dark {
+  --kp-backdrop: #0a0c0f;
+  --kp-surface: #17191c;
+  --kp-surface-2: #1f2124;
+  --kp-line: #2f3336;
+  --kp-text: #e8eaed;
+  --kp-muted: #9aa0a6;
+  --kp-blue: #8ab4f8;
+  --kp-blue-soft: #1e2a3a;
+  --kp-green: #81c995;
+  --kp-amber: #fdd663;
+  --kp-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+@theme inline {
+  --color-backdrop: var(--kp-backdrop);
+  --color-surface: var(--kp-surface);
+  --color-surface-2: var(--kp-surface-2);
+  --color-line: var(--kp-line);
+  --color-ink: var(--kp-text);
+  --color-muted: var(--kp-muted);
+  --color-brand: var(--kp-blue);
+  --color-brand-soft: var(--kp-blue-soft);
+  --color-accent: var(--kp-green);
+  --color-amber: var(--kp-amber);
+  --font-sans: var(--font-app);
+  --shadow-panel: var(--kp-shadow);
+}
+
+html {
+  /* Poppins (self-hosted via next/font) covers Latin; the Bengali families that
+     follow pick up every glyph Poppins doesn't ship. */
+  --font-app: var(--font-poppins), "Segoe UI", Roboto, system-ui, -apple-system,
+    "Noto Sans Bengali", "Nirmala UI", "Hind Siliguri", "Helvetica Neue", Arial,
+    sans-serif;
+  background: var(--kp-backdrop);
+  color: var(--kp-text);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-app);
+  background: var(--kp-backdrop);
+  color: var(--kp-text);
+  overscroll-behavior-y: none;
+}
+
+/* The mobile column: identical on a phone and on a desktop monitor. */
+.kp-shell {
+  width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
+  min-height: 100dvh;
+  background: var(--kp-surface);
+  position: relative;
+}
+
+@media (min-width: 480px) {
+  .kp-shell {
+    box-shadow: 0 0 0 1px var(--kp-line), 0 18px 50px rgba(15, 23, 42, 0.14);
+  }
+}
+
+.kp-card {
+  background: var(--kp-surface);
+  border: 1px solid var(--kp-line);
+  border-radius: 12px;
+}
+
+/* Horizontal strips (tabs, chips) scroll without showing a scrollbar. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-x-strip {
+  scroll-snap-type: x mandatory;
+}
+.snap-x-strip > * {
+  scroll-snap-align: center;
+}
+
+/* Clamp helpers used by cards and news excerpts. */
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@keyframes kp-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.kp-enter {
+  animation: kp-fade-up 0.22s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kp-enter {
+    animation: none;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: var(--kp-blue-soft);
+  color: var(--kp-text);
+}

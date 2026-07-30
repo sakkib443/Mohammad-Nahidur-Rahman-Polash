@@ -1,0 +1,128 @@
+[
+  {
+    "id": "l1",
+    "platform": "facebook",
+    "label": "Facebook",
+    "url": "https://www.facebook.com/share/1E9MXL4vZF/",
+    "featured": true
+  },
+  {
+    "id": "l2",
+    "platform": "youtube",
+    "label": "YouTube",
+    "url": "https://www.youtube.com/@mohammadnahidurrahman2269",
+    "featured": true
+  },
+  {
+    "id": "l3",
+    "platform": "instagram",
+    "label": "Instagram",
+    "url": "https://www.instagram.com/moha.mmadnahidurrahmanpolash",
+    "featured": true
+  },
+  {
+    "id": "l4",
+    "platform": "linkedin",
+    "label": "LinkedIn",
+    "url": "https://www.linkedin.com/in/mohammad-nahidur-rahman-polash-9790393b7",
+    "featured": true
+  },
+  {
+    "id": "l5",
+    "platform": "tiktok",
+    "label": "TikTok",
+    "url": "https://www.tiktok.com/@mohammadnahidurra03",
+    "featured": true
+  },
+  {
+    "id": "l6",
+    "platform": "x",
+    "label": "X (Twitter)",
+    "url": "https://x.com/polash92149",
+    "featured": true
+  },
+  {
+    "id": "l7",
+    "platform": "telegram",
+    "label": "Telegram",
+    "url": "https://t.me/MohammadNahidurRhamanPolash",
+    "featured": true
+  },
+  {
+    "id": "l8",
+    "platform": "threads",
+    "label": "Threads",
+    "url": "https://www.threads.com/@moham_madnahidurrahmanpolash",
+    "featured": false
+  },
+  {
+    "id": "l9",
+    "platform": "github",
+    "label": "GitHub",
+    "url": "https://github.com/MohammadNahidurRhamanPolash",
+    "featured": false
+  },
+  {
+    "id": "l10",
+    "platform": "reddit",
+    "label": "Reddit",
+    "url": "https://www.reddit.com/u/mohammadpolash1024",
+    "featured": false
+  },
+  {
+    "id": "l11",
+    "platform": "tumblr",
+    "label": "Tumblr",
+    "url": "https://www.tumblr.com/mohammadp",
+    "featured": false
+  },
+  {
+    "id": "l12",
+    "platform": "vimeo",
+    "label": "Vimeo",
+    "url": "https://vimeo.com/user255933032",
+    "featured": false
+  },
+  {
+    "id": "l13",
+    "platform": "snapchat",
+    "label": "Snapchat",
+    "url": "https://www.snapchat.com/add/mohammadnahidur",
+    "featured": false
+  },
+  {
+    "id": "l14",
+    "platform": "vk",
+    "label": "VK",
+    "url": "https://vk.ru/id1112130435",
+    "featured": false
+  },
+  {
+    "id": "l15",
+    "platform": "likee",
+    "label": "Likee",
+    "url": "https://l.likee.video/p/iWmSJD",
+    "featured": false
+  },
+  {
+    "id": "l16",
+    "platform": "blogger",
+    "label": "Blogspot",
+    "url": "https://mohammadnahidurrahmanpolash87.blogspot.com/2026/03/sheikh-mohammad-nahidur-rahman-polash.html",
+    "featured": false
+  },
+  {
+    "id": "l17",
+    "platform": "web",
+    "label": "Personal site",
+    "url": "https://www.mohammadnahidurrahmanpolash.xyz/",
+    "featured": true
+  },
+  {
+    "id": "l18",
+    "platform": "web",
+    "label": "Linkeei",
+    "url": "https://linkeei.com/MohammadNahidurRahmanPolash",
+    "featured": false
+  }
+]
