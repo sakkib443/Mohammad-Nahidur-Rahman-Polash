@@ -316,6 +316,7 @@ export const platformColors: Record<string, string> = {
   gettr: "#E5222C",
   barterhub: "#0F9D8C",
   hobbyswap: "#7C4DFF",
+  palsome: "#FF5E3A",
   web: "#1a73e8",
 };
 

@@ -120,6 +120,7 @@ export const seedLinks: LinkItem[] = [
   { id: "l29", platform: "barterhub", label: "BarterHub", url: "https://barterhub.in/profile/mohammad-nahidur-rahman-polash", featured: false },
   { id: "l30", platform: "hobbyswap", label: "HobbySwap", url: "https://web.hobbyswap.net/learning/bible/69831312ed7dc55295fbfc39/get-to-know-mohammad-nahidur-rahman-polash", featured: false },
   { id: "l31", platform: "pinterest", label: "Pinterest", url: "https://www.pinterest.com/mohammadnahidurrahman9300/", featured: false },
+  { id: "l32", platform: "palsome", label: "Palsome", url: "https://palsome.com/en/news_feed/post/eyJpdiI6Ikh4Y0dOVGQ3MEluMlMvOHg1UkVRREE9PSIsInZhbHVlIjoic0dNMFR2dzFZeDN4QkNXekxzelNUZz09IiwibWFjIjoiNjFjZThkM2UzODRiNmJiNjFiMmMyNTA5ZDk0NzVlY2ZhODVkZjQ1ZGQ0YmJiMmFiYzM4N2U3ODhiM2QzZGQyNiIsInRhZyI6IiJ9", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [
