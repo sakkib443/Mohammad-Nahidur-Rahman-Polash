@@ -70,8 +70,12 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="bn" className={poppins.variable} suppressHydrationWarning>
+    <html lang="bn" translate="no" className={poppins.variable} suppressHydrationWarning>
       <head>
+        {/* The page mixes an English UI with Bengali name/overview, so Chrome
+            keeps popping its "Bangla → English" translate bar. Both signals
+            below tell it (and Google Translate) to leave the page alone. */}
+        <meta name="google" content="notranslate" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="antialiased">
