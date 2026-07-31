@@ -222,5 +222,19 @@
     "label": "Palsome",
     "url": "https://palsome.com/en/news_feed/post/eyJpdiI6Ikh4Y0dOVGQ3MEluMlMvOHg1UkVRREE9PSIsInZhbHVlIjoic0dNMFR2dzFZeDN4QkNXekxzelNUZz09IiwibWFjIjoiNjFjZThkM2UzODRiNmJiNjFiMmMyNTA5ZDk0NzVlY2ZhODVkZjQ1ZGQ0YmJiMmFiYzM4N2U3ODhiM2QzZGQyNiIsInRhZyI6IiJ9",
     "featured": false
+  },
+  {
+    "id": "l33",
+    "platform": "instagram",
+    "label": "Instagram (2)",
+    "url": "https://www.instagram.com/moham_madnahidurrahmanpolash",
+    "featured": false
+  },
+  {
+    "id": "l34",
+    "platform": "web",
+    "label": "Business Site",
+    "url": "https://sheikhmohammadnahidurrahmanpolas.com.free/",
+    "featured": false
   }
 ]
