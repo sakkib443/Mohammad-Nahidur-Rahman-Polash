@@ -123,6 +123,9 @@ export const seedLinks: LinkItem[] = [
   { id: "l32", platform: "palsome", label: "Palsome", url: "https://palsome.com/en/news_feed/post/eyJpdiI6Ikh4Y0dOVGQ3MEluMlMvOHg1UkVRREE9PSIsInZhbHVlIjoic0dNMFR2dzFZeDN4QkNXekxzelNUZz09IiwibWFjIjoiNjFjZThkM2UzODRiNmJiNjFiMmMyNTA5ZDk0NzVlY2ZhODVkZjQ1ZGQ0YmJiMmFiYzM4N2U3ODhiM2QzZGQyNiIsInRhZyI6IiJ9", featured: false },
   { id: "l33", platform: "instagram", label: "Instagram (2)", url: "https://www.instagram.com/moham_madnahidurrahmanpolash", featured: false },
   { id: "l34", platform: "web", label: "Business Site", url: "https://sheikhmohammadnahidurrahmanpolas.com.free/", featured: false },
+  { id: "l35", platform: "web", label: "Online+", url: "https://app.online.io/43NL/x2rfb7cr", featured: false },
+  { id: "l36", platform: "quora", label: "Quora", url: "https://www.quora.com/profile/Mohammad-Nahidur-Rahman-Polash-1", featured: false },
+  { id: "l37", platform: "pinterest", label: "Pinterest (2)", url: "https://www.pinterest.com/mohammadnahidurrahmanpolash20/", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [

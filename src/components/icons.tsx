@@ -204,6 +204,13 @@ export const PinterestIcon = (props: IconProps) => (
   </svg>
 );
 
+export const QuoraIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="11.3" cy="10.8" r="7.3" />
+    <path d="M10.8 14.6c.7 1.8 2.1 3 4.2 3" />
+  </svg>
+);
+
 /** Phone with a download arrow — used for the APK listing. */
 export const AppIcon = (props: IconProps) => (
   <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
@@ -272,6 +279,7 @@ export const platformIcons: Record<
   vk: VkIcon,
   blogger: BloggerIcon,
   pinterest: PinterestIcon,
+  quora: QuoraIcon,
   likee: GlobeIcon,
   google: GoogleIcon,
   deezer: DeezerIcon,
@@ -305,6 +313,7 @@ export const platformColors: Record<string, string> = {
   vk: "#0077FF",
   blogger: "#FF5722",
   pinterest: "#E60023",
+  quora: "#B92B27",
   likee: "#F8CB00",
   google: "#4285F4",
   deezer: "#A238FF",
