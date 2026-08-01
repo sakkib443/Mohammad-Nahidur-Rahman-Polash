@@ -6,17 +6,18 @@ import { AboutCard, FactGrid, OverviewCard } from "./Cards";
 import BooksSection from "./BooksSection";
 import ContactCard from "./ContactCard";
 import FloatingActions from "./FloatingActions";
+import Gallery from "./Gallery";
 import GalleryPreview from "./GalleryPreview";
-import GalleryTab from "./GalleryTab";
 import HeroCarousel from "./HeroCarousel";
 import Lightbox from "./Lightbox";
 import LinksSection from "./LinksSection";
 import NewsTab from "./NewsTab";
 import ReelsTab from "./ReelsTab";
 import ThemeToggle from "./ThemeToggle";
+import VideoTab from "./VideoTab";
 import { EyeIcon, ShareIcon, VerifiedIcon } from "./icons";
 
-const TABS = ["Overview", "Gallery", "Reels", "News"] as const;
+const TABS = ["Overview", "Images", "Videos", "Reels", "News"] as const;
 type Tab = (typeof TABS)[number];
 
 export default function ProfileApp({
@@ -236,19 +237,15 @@ export default function ProfileApp({
             <GalleryPreview
               photos={gallery}
               name={profile.name}
-              onSeeAll={() => selectTab("Gallery")}
+              onSeeAll={() => selectTab("Images")}
             />
             <ContactCard />
           </>
         )}
 
-        {tab === "Gallery" && (
-          <GalleryTab
-            photos={gallery}
-            videos={videos}
-            name={profile.name}
-            channelUrl={youtube}
-          />
+        {tab === "Images" && <Gallery photos={gallery} name={profile.name} />}
+        {tab === "Videos" && (
+          <VideoTab videos={videos} channelUrl={youtube} />
         )}
         {tab === "Reels" && <ReelsTab reels={reels} />}
         {tab === "News" && <NewsTab news={news} />}
