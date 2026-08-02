@@ -230,6 +230,48 @@ export const DeezerIcon = (props: IconProps) => (
   </svg>
 );
 
+export const SoundcloudIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="currentColor">
+    <rect x="2.6" y="11.2" width="1.5" height="4.8" rx="0.75" />
+    <rect x="5.5" y="9.6" width="1.5" height="6.4" rx="0.75" />
+    <rect x="8.4" y="8.4" width="1.5" height="7.6" rx="0.75" />
+    <path d="M11.9 16V8.6a4.2 4.2 0 0 1 6.2 3 3.2 3.2 0 0 1-.7 4.4h-4.6a.9.9 0 0 1-.9-.9Z" />
+  </svg>
+);
+
+export const SpotifyIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round">
+    <circle cx="12" cy="12" r="9" />
+    <path d="M7.4 9.1c3-.8 6.2-.4 8.9 1.1" />
+    <path d="M8 12.3c2.5-.6 5.1-.3 7.3.9" />
+    <path d="M8.6 15.3c2-.5 4-.2 5.8.8" />
+  </svg>
+);
+
+/** Open book — the encyclopedia-style wiki profiles (Wikigence, WikiLegends, …). */
+export const WikiIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 6.6C10.3 5.2 7.9 4.7 4.5 5v12c3.4-.3 5.8.2 7.5 1.6 1.7-1.4 4.1-1.9 7.5-1.6V5c-3.4-.3-5.8.2-7.5 1.6Z" />
+    <path d="M12 6.6v12" />
+  </svg>
+);
+
+/** Contact card — used for the VIPTap digital business card. */
+export const CardIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2.8" y="5.2" width="18.4" height="13.6" rx="2.4" />
+    <circle cx="8.4" cy="10.8" r="1.9" />
+    <path d="M5.7 15.7c.6-1.5 4-1.5 4.6 0M13.8 9.8h4.4M13.8 13.4h4.4" />
+  </svg>
+);
+
+export const MapPinIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M19 10.3c0 5.2-7 11.2-7 11.2s-7-6-7-11.2a7 7 0 1 1 14 0Z" />
+    <circle cx="12" cy="10.1" r="2.6" />
+  </svg>
+);
+
 export const WordpressIcon = (props: IconProps) => (
   <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="9" />
@@ -282,6 +324,15 @@ export const platformIcons: Record<
   quora: QuoraIcon,
   likee: GlobeIcon,
   google: GoogleIcon,
+  googlemaps: MapPinIcon,
+  googlebooks: BookIcon,
+  soundcloud: SoundcloudIcon,
+  spotify: SpotifyIcon,
+  wikigence: WikiIcon,
+  everybodywiki: WikiIcon,
+  wikilegends: WikiIcon,
+  viptap: CardIcon,
+  youthkiawaaz: GlobeIcon,
   deezer: DeezerIcon,
   wordpress: WordpressIcon,
   aboutme: GlobeIcon,
@@ -316,6 +367,15 @@ export const platformColors: Record<string, string> = {
   quora: "#B92B27",
   likee: "#F8CB00",
   google: "#4285F4",
+  googlemaps: "#34A853",
+  googlebooks: "#4285F4",
+  soundcloud: "#FF5500",
+  spotify: "#1DB954",
+  wikigence: "#1F6FEB",
+  everybodywiki: "#4B5563",
+  wikilegends: "#0F172A",
+  viptap: "#0EA5A4",
+  youthkiawaaz: "#17A2A2",
   deezer: "#A238FF",
   wordpress: "#21759B",
   aboutme: "#00A98F",

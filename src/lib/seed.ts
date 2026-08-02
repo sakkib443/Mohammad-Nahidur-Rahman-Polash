@@ -126,6 +126,23 @@ export const seedLinks: LinkItem[] = [
   { id: "l35", platform: "web", label: "Online+", url: "https://app.online.io/43NL/x2rfb7cr", featured: false },
   { id: "l36", platform: "quora", label: "Quora", url: "https://www.quora.com/profile/Mohammad-Nahidur-Rahman-Polash-1", featured: false },
   { id: "l37", platform: "pinterest", label: "Pinterest (2)", url: "https://www.pinterest.com/mohammadnahidurrahmanpolash20/", featured: false },
+  { id: "l38", platform: "googlemaps", label: "Google Maps", url: "https://maps.app.goo.gl/XDxzdwujXJrhdoG19", featured: false },
+  { id: "l39", platform: "wikigence", label: "Wikigence", url: "https://wikigence.org/wiki/Mohammad_Nahidur_Rahman_Polash", featured: false },
+  // A third Blogspot site (…polashs), separate from l16 (…polash87) and l28 (…p38).
+  { id: "l40", platform: "blogger", label: "Blogspot (2)", url: "https://mohammadnahidurrahmanpolashs.blogspot.com/2026/03/sheikh-mohammad-nahidur-rahman-polash.html", featured: false },
+  { id: "l41", platform: "viptap", label: "VIPTap Card", url: "https://viptap.club/mdnahidur", featured: false },
+  { id: "l42", platform: "youthkiawaaz", label: "Youth Ki Awaaz", url: "https://www.youthkiawaaz.com/author/mohammadnahidurrahmanpolash41gmail-com/", featured: false },
+  { id: "l43", platform: "soundcloud", label: "SoundCloud", url: "https://soundcloud.com/mohammad-rahman-polash-497989260", featured: false },
+  { id: "l44", platform: "everybodywiki", label: "EverybodyWiki", url: "https://en.everybodywiki.com/Mohammad_Nahidur_Rahman_Polash", featured: false },
+  { id: "l45", platform: "wikilegends", label: "WikiLegends", url: "https://wikilegends.org/wiki/mohammad-nahidur-rahman-polash", featured: false },
+  // A second YouTube channel (…polas-p2x) — not the same as l2 (…rahman2269).
+  { id: "l46", platform: "youtube", label: "YouTube (2)", url: "https://www.youtube.com/@mohammadnahidurrahmanpolas-p2x", featured: false },
+  { id: "l47", platform: "facebook", label: "Facebook Post", url: "https://www.facebook.com/61552268352601/posts/122110417454075611/", featured: false },
+  { id: "l48", platform: "google", label: "Google Search", url: "https://www.google.com/search?q=mohammadnahidurrahmanpolash", featured: false },
+  { id: "l49", platform: "googlebooks", label: "Google Books", url: "https://books.google.com/books/about/Mohammad_Nahidur_Rahman_Polash.html?id=Qv3TEQAAQBAJ", featured: false },
+  // Two separate Spotify accounts.
+  { id: "l50", platform: "spotify", label: "Spotify", url: "https://open.spotify.com/user/31ejzgrkqywycfvjw6456obdn4um", featured: false },
+  { id: "l51", platform: "spotify", label: "Spotify (2)", url: "https://open.spotify.com/user/31rzvhxb5l5atbuxarpvgyubwwzm", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [
