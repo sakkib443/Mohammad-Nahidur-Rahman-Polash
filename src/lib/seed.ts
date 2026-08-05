@@ -143,6 +143,8 @@ export const seedLinks: LinkItem[] = [
   // Two separate Spotify accounts.
   { id: "l50", platform: "spotify", label: "Spotify", url: "https://open.spotify.com/user/31ejzgrkqywycfvjw6456obdn4um", featured: false },
   { id: "l51", platform: "spotify", label: "Spotify (2)", url: "https://open.spotify.com/user/31rzvhxb5l5atbuxarpvgyubwwzm", featured: false },
+  // A third Google share link, separate from l19 (knowledge panel) and l20 (business listing).
+  { id: "l52", platform: "google", label: "Google Profile (2)", url: "https://share.google/qn91mEsAt0t9FZCyh", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [
