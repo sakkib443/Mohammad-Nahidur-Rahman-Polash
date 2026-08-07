@@ -54,8 +54,15 @@ export const seedProfile: Profile = {
     { id: "a6", label: "Languages", value: "Bengali, English" },
     { id: "a7", label: "Website", value: "mohammadnahidurrahmanpolash.xyz" },
   ],
-  email: "",
-  phone: "",
+  email: "mohammadnahidurrahmanpolash20@gmail.com",
+  phone: "+8801622542238",
+  emails: [
+    "mohammadnahidurrahmanpolash20@gmail.com",
+    "mohammadraman@icloud.com",
+    "mohammadrahman409@yahoo.com",
+    "muhammadnahidurrahmanpolash36@aol.com",
+  ],
+  phones: ["+8801622542238", "+966502925991", "+966501672741"],
   location: "Chattogram, Bangladesh",
   website: "https://www.mohammadnahidurrahmanpolash.xyz/",
   seoKeywords: [

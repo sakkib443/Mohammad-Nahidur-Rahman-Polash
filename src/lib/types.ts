@@ -28,6 +28,8 @@ export type Profile = {
   about: AboutRow[];
   email: string;
   phone: string;
+  emails: string[];
+  phones: string[];
   location: string;
   website: string;
   seoKeywords: string[];

@@ -37,6 +37,8 @@ const { GET, PUT } = createResource<Profile>({
       about: rows(input.about),
       email: str(input.email),
       phone: str(input.phone),
+      emails: strList(input.emails),
+      phones: strList(input.phones),
       location: str(input.location),
       website: str(input.website),
       seoKeywords: strList(input.seoKeywords),

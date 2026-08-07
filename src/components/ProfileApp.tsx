@@ -5,6 +5,7 @@ import type { AboutRow, Content, Fact } from "@/lib/types";
 import { AboutCard, FactGrid, OverviewCard } from "./Cards";
 import BooksSection from "./BooksSection";
 import ContactCard from "./ContactCard";
+import ContactInfo from "./ContactInfo";
 import FloatingActions from "./FloatingActions";
 import Gallery from "./Gallery";
 import GalleryPreview from "./GalleryPreview";
@@ -238,6 +239,10 @@ export default function ProfileApp({
               photos={gallery}
               name={profile.name}
               onSeeAll={() => selectTab("Images")}
+            />
+            <ContactInfo
+              emails={profile.emails ?? (profile.email ? [profile.email] : [])}
+              phones={profile.phones ?? (profile.phone ? [profile.phone] : [])}
             />
             <ContactCard />
           </>
