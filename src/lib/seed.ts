@@ -158,6 +158,7 @@ export const seedLinks: LinkItem[] = [
   { id: "l52", platform: "googlebooks", label: "Google Books (2)", url: "https://share.google/Keeq6eqzdEdUqFHAQ", featured: false },
   { id: "l53", platform: "google", label: "Google Profile (2)", url: "https://share.google/qn91mEsAt0t9FZCyh", featured: false },
   { id: "l54", platform: "blogger", label: "Blogger (2)", url: "https://nahidurrahmahpolash1993.blogspot.com/2026/03/mohammad-nahidur-rahman-polash.html", featured: false },
+  { id: "l55", platform: "blogger", label: "Blogger (3)", url: "https://mohammadnahidurrahmanpolash9300.blogspot.com/", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [
