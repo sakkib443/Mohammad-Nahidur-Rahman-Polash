@@ -61,6 +61,8 @@ export const seedProfile: Profile = {
     "mohammadraman@icloud.com",
     "mohammadrahman409@yahoo.com",
     "muhammadnahidurrahmanpolash36@aol.com",
+    "muhammadnahidurrahmanpolash@petalmail.com",
+    "mohammadnahidurrahmanpolash1993@outlook.com",
   ],
   phones: ["+8801622542238", "+966502925991", "+966501672741"],
   location: "Chattogram, Bangladesh",
