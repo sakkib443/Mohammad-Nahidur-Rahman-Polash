@@ -159,6 +159,8 @@ export const seedLinks: LinkItem[] = [
   { id: "l53", platform: "google", label: "Google Profile (2)", url: "https://share.google/qn91mEsAt0t9FZCyh", featured: false },
   { id: "l54", platform: "blogger", label: "Blogger (2)", url: "https://nahidurrahmahpolash1993.blogspot.com/2026/03/mohammad-nahidur-rahman-polash.html", featured: false },
   { id: "l55", platform: "blogger", label: "Blogger (3)", url: "https://mohammadnahidurrahmanpolash9300.blogspot.com/", featured: false },
+  // A third knowledge panel (kgmid /g/11nj9xkzjc) — l19 and l20 point at the other two.
+  { id: "l56", platform: "google", label: "Google Profile (3)", url: "https://share.google/c2PV2mceH0PEvyHpZ", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [
