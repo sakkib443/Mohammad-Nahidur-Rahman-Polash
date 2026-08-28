@@ -64,7 +64,7 @@ export const seedProfile: Profile = {
     "muhammadnahidurrahmanpolash@petalmail.com",
     "mohammadnahidurrahmanpolash1993@outlook.com",
   ],
-  phones: ["+8801622542238", "+966502925991", "+966501672741"],
+  phones: ["+8801622542238", "+966502925991", "+966501672741", "+97450261901", "+97477296334"],
   location: "Chattogram, Bangladesh",
   website: "https://www.mohammadnahidurrahmanpolash.xyz/",
   seoKeywords: [
@@ -161,6 +161,8 @@ export const seedLinks: LinkItem[] = [
   { id: "l55", platform: "blogger", label: "Blogger (3)", url: "https://mohammadnahidurrahmanpolash9300.blogspot.com/", featured: false },
   // A third knowledge panel (kgmid /g/11nj9xkzjc) — l19 and l20 point at the other two.
   { id: "l56", platform: "google", label: "Google Profile (3)", url: "https://share.google/c2PV2mceH0PEvyHpZ", featured: false },
+  { id: "l57", platform: "facebook", label: "Facebook (2)", url: "https://www.facebook.com/share/1FFAbrgiCS/", featured: false },
+  { id: "l58", platform: "x", label: "X (2)", url: "https://x.com/MohammaNahidur", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [

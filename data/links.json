@@ -390,5 +390,19 @@
     "label": "Google Profile (3)",
     "url": "https://share.google/c2PV2mceH0PEvyHpZ",
     "featured": false
+  },
+  {
+    "id": "l57",
+    "platform": "facebook",
+    "label": "Facebook (2)",
+    "url": "https://www.facebook.com/share/1FFAbrgiCS/",
+    "featured": false
+  },
+  {
+    "id": "l58",
+    "platform": "x",
+    "label": "X (2)",
+    "url": "https://x.com/MohammaNahidur",
+    "featured": false
   }
 ]
