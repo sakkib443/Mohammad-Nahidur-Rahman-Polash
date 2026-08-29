@@ -10,7 +10,7 @@ import {
   setPassword,
   usingStoredPassword,
 } from "@/lib/auth";
-import { blobClientUploads } from "@/lib/blob";
+import { blobClientUploads, blobEnabled } from "@/lib/blob";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +20,7 @@ export async function GET() {
     authed: await isAuthed(),
     storedPassword: await usingStoredPassword(),
     blob: blobClientUploads(),
+    storage: blobEnabled() ? "blob" : "disk",
   });
 }
 
