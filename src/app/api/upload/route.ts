@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { isAuthed, unauthorized } from "@/lib/auth";
-import { blobEnabled, deleteBlobFile, putBlobFile } from "@/lib/blob";
+import { blobEnabled, deleteBlobFile } from "@/lib/blob";
 import { addGalleryPhotos, removeGalleryPhoto } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
@@ -28,12 +28,22 @@ const ALLOWED: Record<string, Kind> = {
 const mb = (bytes: number) => Math.round(bytes / 1024 / 1024);
 
 /**
- * Admin-only upload. Images land in `public/gallery` (and so appear in the
- * gallery automatically); videos land in `public/media` for use as a reel or
- * video `file` path.
+ * Admin-only upload for hosts with a writable disk: images land in
+ * `public/gallery`, videos in `public/media`.
+ *
+ * On Blob hosts the browser uploads directly instead — a Vercel function only
+ * accepts a 4.5 MB request body, so anything bigger never gets here. See
+ * /api/upload/client.
  */
 export async function POST(request: Request) {
   if (!(await isAuthed())) return unauthorized();
+
+  if (blobEnabled()) {
+    return Response.json(
+      { ok: false, error: "This host uploads from the browser" },
+      { status: 400 },
+    );
+  }
 
   const form = await request.formData().catch(() => null);
   if (!form) {
@@ -66,28 +76,41 @@ export async function POST(request: Request) {
     const name = `upload-${stamp}-${rand}${kind.ext}`;
 
     const buffer = Buffer.from(await file.arrayBuffer());
+    await fs.mkdir(kind.dir, { recursive: true });
+    await fs.writeFile(path.join(kind.dir, name), buffer);
 
-    if (blobEnabled()) {
-      // `urlBase` doubles as the Blob folder, so gallery and media stay apart.
-      const url = await putBlobFile(
-        `${kind.urlBase.slice(1)}/${name}`,
-        buffer,
-        file.type,
-      );
-      saved.push(url);
-    } else {
-      await fs.mkdir(kind.dir, { recursive: true });
-      await fs.writeFile(path.join(kind.dir, name), buffer);
-      saved.push(`${kind.urlBase}/${name}`);
-    }
-
-    if (kind.urlBase === "/gallery") images.push(saved[saved.length - 1]);
+    const src = `${kind.urlBase}/${name}`;
+    saved.push(src);
+    if (kind.urlBase === "/gallery") images.push(src);
   }
 
   // Blob has no folder to list, so every photo has to be recorded to show up.
   await addGalleryPhotos(images);
 
   return Response.json({ ok: true, saved, skipped });
+}
+
+/**
+ * Records files the browser uploaded straight to Blob. The upload itself never
+ * reaches this server, so without this the gallery would never learn about it.
+ */
+export async function PATCH(request: Request) {
+  if (!(await isAuthed())) return unauthorized();
+
+  const body = await request.json().catch(() => null);
+  const srcs: unknown = body?.srcs;
+  if (!Array.isArray(srcs)) {
+    return Response.json({ ok: false, error: "No files" }, { status: 400 });
+  }
+
+  const clean = srcs.filter(
+    (s): s is string =>
+      typeof s === "string" &&
+      /^https:\/\/[a-z0-9-]+\.public\.blob\.vercel-storage\.com\/gallery\//.test(s),
+  );
+
+  await addGalleryPhotos(clean);
+  return Response.json({ ok: true, added: clean.length });
 }
 
 /** Admin-only delete of an uploaded file under /gallery or /media. */
@@ -121,7 +144,20 @@ export async function DELETE(request: Request) {
     return Response.json({ ok: false, error: "Invalid path" }, { status: 400 });
   }
 
-  await fs.unlink(target).catch(() => {});
+  // A failure here used to be swallowed, which left the file on disk for the
+  // folder scan to re-add — the photo came back and nothing said why.
+  try {
+    await fs.unlink(target);
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code;
+    if (code !== "ENOENT") {
+      return Response.json(
+        { ok: false, error: `ফাইলটি মুছতে পারিনি (${code ?? "error"})` },
+        { status: 500 },
+      );
+    }
+  }
+
   await removeGalleryPhoto(src);
   return Response.json({ ok: true });
 }

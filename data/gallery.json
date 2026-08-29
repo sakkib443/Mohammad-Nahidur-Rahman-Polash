@@ -1,1 +1,290 @@
-[]
+[
+  {
+    "id": "photo-01",
+    "src": "/gallery/photo-01.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-02",
+    "src": "/gallery/photo-02.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-03",
+    "src": "/gallery/photo-03.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-04",
+    "src": "/gallery/photo-04.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-05",
+    "src": "/gallery/photo-05.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-06",
+    "src": "/gallery/photo-06.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-07",
+    "src": "/gallery/photo-07.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-08",
+    "src": "/gallery/photo-08.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-09",
+    "src": "/gallery/photo-09.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-10",
+    "src": "/gallery/photo-10.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-11",
+    "src": "/gallery/photo-11.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-12",
+    "src": "/gallery/photo-12.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-13",
+    "src": "/gallery/photo-13.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-14",
+    "src": "/gallery/photo-14.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-15",
+    "src": "/gallery/photo-15.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-16",
+    "src": "/gallery/photo-16.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-17",
+    "src": "/gallery/photo-17.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-18",
+    "src": "/gallery/photo-18.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-19",
+    "src": "/gallery/photo-19.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-20",
+    "src": "/gallery/photo-20.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-21",
+    "src": "/gallery/photo-21.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-22",
+    "src": "/gallery/photo-22.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-23",
+    "src": "/gallery/photo-23.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-24",
+    "src": "/gallery/photo-24.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-25",
+    "src": "/gallery/photo-25.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-26",
+    "src": "/gallery/photo-26.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-27",
+    "src": "/gallery/photo-27.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-28",
+    "src": "/gallery/photo-28.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-29",
+    "src": "/gallery/photo-29.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-30",
+    "src": "/gallery/photo-30.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-31",
+    "src": "/gallery/photo-31.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-32",
+    "src": "/gallery/photo-32.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-33",
+    "src": "/gallery/photo-33.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-34",
+    "src": "/gallery/photo-34.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-35",
+    "src": "/gallery/photo-35.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-36",
+    "src": "/gallery/photo-36.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-37",
+    "src": "/gallery/photo-37.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-38",
+    "src": "/gallery/photo-38.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-39",
+    "src": "/gallery/photo-39.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-40",
+    "src": "/gallery/photo-40.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-41",
+    "src": "/gallery/photo-41.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-42",
+    "src": "/gallery/photo-42.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-43",
+    "src": "/gallery/photo-43.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-44",
+    "src": "/gallery/photo-44.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-45",
+    "src": "/gallery/photo-45.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-46",
+    "src": "/gallery/photo-46.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "photo-47",
+    "src": "/gallery/photo-47.jpg",
+    "caption": "",
+    "hidden": false
+  },
+  {
+    "id": "upload-mtes0ai5-dpwjp",
+    "src": "/gallery/upload-mtes0ai5-dpwjp.png",
+    "caption": "",
+    "hidden": false
+  }
+]

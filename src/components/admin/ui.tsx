@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { uploadFiles } from "./upload";
 
 export function Field({
   label,
@@ -216,19 +217,16 @@ export function VideoUpload({
           if (!file) return;
           const input = e.currentTarget;
 
-          const form = new FormData();
-          form.append("files", file);
           flash("আপলোড হচ্ছে…");
 
-          const res = await fetch("/api/upload", { method: "POST", body: form });
-          const json = await res.json().catch(() => ({ ok: false }));
+          const result = await uploadFiles([file]);
           input.value = "";
 
-          if (!json.ok || json.saved.length === 0) {
-            flash(`✕ ${json.error || json.skipped?.[0] || "Upload failed"}`);
+          if (result.saved.length === 0) {
+            flash(`✕ ${result.error || result.skipped[0] || "Upload failed"}`);
             return;
           }
-          onUploaded(json.saved[0]);
+          onUploaded(result.saved[0]);
           flash("✓ ভিডিও আপলোড হয়েছে — এবার সেভ করুন");
         }}
         className="w-full text-[12px] text-muted"

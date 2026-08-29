@@ -14,6 +14,7 @@ import type {
 } from "@/lib/types";
 import { PlatformIcon, platformColors, platformIcons } from "../icons";
 import { Btn, Field, Modal, Row, VideoUpload, move, uid } from "./ui";
+import { uploadFiles } from "./upload";
 
 const SECTIONS = [
   "Profile",
@@ -842,18 +843,18 @@ function GalleryEditor({
     if (!files || files.length === 0) return;
     setBusy(true);
 
-    const form = new FormData();
-    Array.from(files).forEach((f) => form.append("files", f));
-
-    const res = await fetch("/api/upload", { method: "POST", body: form });
-    const json = await res.json().catch(() => ({ ok: false }));
+    const result = await uploadFiles(Array.from(files));
     setBusy(false);
 
-    if (!json.ok) {
-      flash(`✕ ${json.error || "Upload failed"}`);
+    if (result.saved.length === 0) {
+      flash(`✕ ${result.error || "Upload failed"}`);
       return;
     }
-    flash(`✓ ${json.saved.length}টি ছবি আপলোড হয়েছে`);
+    flash(
+      result.skipped.length > 0
+        ? `✓ ${result.saved.length}টি হয়েছে, ${result.skipped.length}টি বাদ`
+        : `✓ ${result.saved.length}টি ছবি আপলোড হয়েছে`,
+    );
     if (fileRef.current) fileRef.current.value = "";
     await reload();
   }
