@@ -13,6 +13,10 @@ function secret(): string {
   );
 }
 
+function adminEmail(): string {
+  return process.env.ADMIN_EMAIL || "admin@gmail.com";
+}
+
 function adminPassword(): string {
   return process.env.ADMIN_PASSWORD || "polash2026";
 }
@@ -40,12 +44,26 @@ export function verifyToken(token: string | undefined): boolean {
   return crypto.timingSafeEqual(a, b);
 }
 
-export function checkPassword(input: unknown): boolean {
-  if (typeof input !== "string") return false;
+/** Constant-time compare that tolerates different lengths. */
+function matches(input: string, expected: string): boolean {
   const a = Buffer.from(input);
-  const b = Buffer.from(adminPassword());
+  const b = Buffer.from(expected);
   if (a.length !== b.length) return false;
   return crypto.timingSafeEqual(a, b);
+}
+
+/**
+ * Both halves are always compared, so a wrong email costs the same time as a
+ * wrong password and neither can be probed separately. Email is case- and
+ * whitespace-insensitive; the password is not.
+ */
+export function checkCredentials(email: unknown, password: unknown): boolean {
+  const emailOk =
+    typeof email === "string" &&
+    matches(email.trim().toLowerCase(), adminEmail().trim().toLowerCase());
+  const passwordOk =
+    typeof password === "string" && matches(password, adminPassword());
+  return emailOk && passwordOk;
 }
 
 export async function isAuthed(): Promise<boolean> {

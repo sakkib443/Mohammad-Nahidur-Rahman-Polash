@@ -12,7 +12,8 @@ import type {
   ReelItem,
   VideoItem,
 } from "@/lib/types";
-import { Btn, Field, Row, VideoUpload, move, uid } from "./ui";
+import { PlatformIcon, platformColors, platformIcons } from "../icons";
+import { Btn, Field, Modal, Row, VideoUpload, move, uid } from "./ui";
 
 const SECTIONS = [
   "Profile",
@@ -46,6 +47,7 @@ async function getJson<T>(url: string): Promise<T | null> {
 
 export default function AdminApp() {
   const [authed, setAuthed] = useState<boolean | null>(null);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [section, setSection] = useState<Section>("Profile");
@@ -102,7 +104,7 @@ export default function AdminApp() {
     const res = await fetch("/api/auth", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password }),
+      body: JSON.stringify({ email, password }),
     });
     const json = await res.json();
     if (json.ok) {
@@ -148,14 +150,23 @@ export default function AdminApp() {
         <form onSubmit={login} className="kp-card w-full space-y-3 p-4">
           <h1 className="text-[15px] font-bold text-ink">Admin Login</h1>
           <p className="text-[12px] text-muted">
-            কন্টেন্ট এডিট করতে পাসওয়ার্ড দিন।
+            কন্টেন্ট এডিট করতে ইমেইল ও পাসওয়ার্ড দিন।
           </p>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            autoComplete="username"
+            autoFocus
+            className="w-full rounded-lg border border-line bg-surface-2 px-3 py-2.5 text-[13px] text-ink outline-none focus:border-brand"
+          />
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            autoFocus
+            autoComplete="current-password"
             className="w-full rounded-lg border border-line bg-surface-2 px-3 py-2.5 text-[13px] text-ink outline-none focus:border-brand"
           />
           {loginError && (
@@ -195,7 +206,9 @@ export default function AdminApp() {
             <Btn onClick={logout}>Logout</Btn>
           </div>
         </div>
-        <nav className="no-scrollbar flex gap-2 overflow-x-auto px-4 pb-2.5 pt-2">
+        {/* Wraps instead of scrolling: with eight tabs the last two used to sit
+            off the right edge with nothing to hint they were there. */}
+        <nav className="flex flex-wrap gap-2 px-4 pb-2.5 pt-2">
           {SECTIONS.map((s) => (
             <button
               key={s}
@@ -216,11 +229,7 @@ export default function AdminApp() {
         </nav>
       </header>
 
-      {toast && (
-        <p className="sticky top-[92px] z-20 bg-accent/15 py-1.5 text-center text-[12px] font-medium text-accent">
-          {toast}
-        </p>
-      )}
+      <Toast text={toast} />
 
       <div className="space-y-3 p-4">
         {section === "Profile" && (
@@ -234,7 +243,7 @@ export default function AdminApp() {
           <LinksEditor
             links={data.links}
             onChange={(l) => set("links", l)}
-            onSave={() => save("/api/links", data.links, "লিংক")}
+            onSave={(next) => save("/api/links", next ?? data.links, "লিংক")}
           />
         )}
         {section === "Videos" && (
@@ -396,13 +405,11 @@ function ProfileEditor({
 
 /* --------------------------------- Links --------------------------------- */
 
-const PLATFORMS = [
-  "facebook", "youtube", "instagram", "linkedin", "tiktok", "x", "telegram",
-  "threads", "github", "reddit", "snapchat", "vimeo", "tumblr", "vk",
-  "blogger", "likee", "google", "whatsapp", "deezer", "wordpress",
-  "aboutme", "spacehey", "band", "gettr", "androidapp", "barterhub",
-  "hobbyswap", "web",
-];
+// Driven off the icon registry so the dropdown can never offer a platform the
+// grid has no icon for — or miss one it does. "twitter" is an alias of "x".
+const PLATFORMS = Object.keys(platformIcons)
+  .filter((p) => p !== "twitter")
+  .sort();
 
 function LinksEditor({
   links,
@@ -411,49 +418,202 @@ function LinksEditor({
 }: {
   links: LinkItem[];
   onChange: (l: LinkItem[]) => void;
-  onSave: () => void;
+  onSave: (next?: LinkItem[]) => void;
 }) {
-  const patch = (id: string, part: Partial<LinkItem>) =>
-    onChange(links.map((l) => (l.id === id ? { ...l, ...part } : l)));
+  // `null` means the dialog is shut. `isNew` decides append vs replace on submit.
+  const [draft, setDraft] = useState<LinkItem | null>(null);
+  const [isNew, setIsNew] = useState(false);
+  const [query, setQuery] = useState("");
+
+  /** Reordering and deleting write straight through — no separate save step. */
+  const commit = (next: LinkItem[]) => {
+    onChange(next);
+    onSave(next);
+  };
+
+  const openNew = () => {
+    setDraft({ id: uid(), platform: "web", label: "", url: "", featured: false });
+    setIsNew(true);
+  };
+
+  const submit = () => {
+    if (!draft) return;
+    const clean = { ...draft, label: draft.label.trim(), url: draft.url.trim() };
+    commit(
+      isNew
+        ? [...links, clean]
+        : links.map((l) => (l.id === clean.id ? clean : l)),
+    );
+    setDraft(null);
+  };
+
+  const needle = query.trim().toLowerCase();
+  const shown = needle
+    ? links.filter((l) =>
+        `${l.label} ${l.platform} ${l.url}`.toLowerCase().includes(needle),
+      )
+    : links;
 
   return (
-    <div className="space-y-2">
-      {links.map((l, i) => (
-        <Row
-          key={l.id}
-          title={l.label || l.platform}
-          onRemove={() => onChange(links.filter((x) => x.id !== l.id))}
-          onUp={i > 0 ? () => onChange(move(links, i, i - 1)) : undefined}
-          onDown={i < links.length - 1 ? () => onChange(move(links, i, i + 1)) : undefined}
+    <div className="space-y-3">
+      <div className="flex items-center justify-between gap-2">
+        <p className="text-[13px] font-semibold text-ink">
+          লিংক <span className="font-normal text-muted">({links.length})</span>
+        </p>
+        <Btn tone="primary" onClick={openNew}>
+          + Add new
+        </Btn>
+      </div>
+
+      {links.length > 8 && (
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="খুঁজুন — নাম, প্ল্যাটফর্ম বা URL"
+          className="w-full rounded-lg border border-line bg-surface-2 px-3 py-2 text-[13px] text-ink outline-none placeholder:text-muted focus:border-brand"
+        />
+      )}
+
+      <div className="space-y-1.5">
+        {shown.map((l) => {
+          // Arrows act on the real position, so search never scrambles order.
+          const i = links.indexOf(l);
+          return (
+            <div key={l.id} className="kp-card flex items-center gap-2.5 p-2.5">
+              <span
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-white"
+                style={{ background: platformColors[l.platform] ?? "#1a73e8" }}
+              >
+                <PlatformIcon platform={l.platform} size={17} />
+              </span>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setDraft({ ...l });
+                  setIsNew(false);
+                }}
+                className="min-w-0 flex-1 text-left"
+              >
+                <p className="flex items-center gap-1.5 truncate text-[12.5px] font-semibold text-ink">
+                  {l.label || l.platform}
+                  {l.featured && (
+                    <span className="shrink-0 rounded-full bg-brand-soft px-1.5 py-px text-[9px] font-bold uppercase text-brand">
+                      Top
+                    </span>
+                  )}
+                </p>
+                <p className="truncate text-[11px] text-muted">{l.url}</p>
+              </button>
+
+              <div className="flex shrink-0 items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => commit(move(links, i, i - 1))}
+                  disabled={i === 0}
+                  aria-label="Move up"
+                  className="grid h-7 w-7 place-items-center rounded-full border border-line text-[12px] text-muted disabled:opacity-30"
+                >
+                  ↑
+                </button>
+                <button
+                  type="button"
+                  onClick={() => commit(move(links, i, i + 1))}
+                  disabled={i === links.length - 1}
+                  aria-label="Move down"
+                  className="grid h-7 w-7 place-items-center rounded-full border border-line text-[12px] text-muted disabled:opacity-30"
+                >
+                  ↓
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (confirm(`"${l.label || l.platform}" মুছে ফেলবেন?`)) {
+                      commit(links.filter((x) => x.id !== l.id));
+                    }
+                  }}
+                  aria-label="Remove"
+                  className="grid h-7 w-7 place-items-center rounded-full border border-[#d93025] text-[12px] text-[#d93025]"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          );
+        })}
+
+        {shown.length === 0 && (
+          <p className="py-6 text-center text-[12.5px] text-muted">
+            {links.length === 0 ? "কোনো লিংক নেই।" : "কিছু পাওয়া যায়নি।"}
+          </p>
+        )}
+      </div>
+
+      {draft && (
+        <Modal
+          title={isNew ? "নতুন লিংক" : "লিংক এডিট"}
+          onClose={() => setDraft(null)}
+          footer={
+            <>
+              <Btn tone="primary" onClick={submit} disabled={!draft.url.trim()}>
+                {isNew ? "যোগ করুন" : "আপডেট করুন"}
+              </Btn>
+              <Btn onClick={() => setDraft(null)}>বাতিল</Btn>
+            </>
+          }
         >
+          <div className="flex items-center gap-2.5 pb-1">
+            <span
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-white"
+              style={{ background: platformColors[draft.platform] ?? "#1a73e8" }}
+            >
+              <PlatformIcon platform={draft.platform} size={20} />
+            </span>
+            <p className="text-[11.5px] text-muted">
+              গ্রিডে এই আইকনটাই দেখাবে।
+            </p>
+          </div>
+
           <label className="block">
-            <span className="mb-1 block text-[11px] font-medium text-muted">Platform</span>
+            <span className="mb-1 block text-[11px] font-medium text-muted">
+              Platform
+            </span>
             <select
-              value={l.platform}
-              onChange={(e) => patch(l.id, { platform: e.target.value })}
+              value={draft.platform}
+              onChange={(e) => setDraft({ ...draft, platform: e.target.value })}
               className="w-full rounded-lg border border-line bg-surface-2 px-3 py-2 text-[13px] text-ink"
             >
               {PLATFORMS.map((p) => (
-                <option key={p} value={p}>{p}</option>
+                <option key={p} value={p}>
+                  {p}
+                </option>
               ))}
             </select>
           </label>
-          <Field label="Label" value={l.label} onChange={(v) => patch(l.id, { label: v })} />
-          <Field label="URL" value={l.url} onChange={(v) => patch(l.id, { url: v })} />
-          <label className="flex items-center gap-2">
+
+          <Field
+            label="Label"
+            value={draft.label}
+            placeholder="যেমন — Facebook (2)"
+            onChange={(v) => setDraft({ ...draft, label: v })}
+          />
+          <Field
+            label="URL"
+            value={draft.url}
+            placeholder="https://…"
+            onChange={(v) => setDraft({ ...draft, url: v })}
+          />
+
+          <label className="flex items-center gap-2 pt-1">
             <input
               type="checkbox"
-              checked={l.featured}
-              onChange={(e) => patch(l.id, { featured: e.target.checked })}
+              checked={draft.featured}
+              onChange={(e) => setDraft({ ...draft, featured: e.target.checked })}
             />
             <span className="text-[12.5px] text-ink">গ্রিডে আগে দেখাবে</span>
           </label>
-        </Row>
-      ))}
-      <Btn onClick={() => onChange([...links, { id: uid(), platform: "web", label: "", url: "", featured: false }])}>
-        + লিংক যোগ করুন
-      </Btn>
-      <SaveBar onSave={onSave} />
+        </Modal>
+      )}
     </div>
   );
 }
@@ -846,6 +1006,38 @@ function Inbox({
 }
 
 /* --------------------------------- Save bar --------------------------------- */
+
+/**
+ * Floating confirmation for saves and uploads. `flash()` prefixes its text with
+ * ✓ or ✕, which is all the tone we need — anything else reads as "in progress".
+ */
+function Toast({ text }: { text: string }) {
+  if (!text) return null;
+
+  const ok = text.startsWith("✓");
+  const failed = text.startsWith("✕");
+  const body = ok || failed ? text.slice(1).trim() : text;
+
+  // bottom-24 clears the sticky save bar, which sits ~58px off the floor.
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      className="pointer-events-none fixed inset-x-0 bottom-24 z-50 flex justify-center px-6"
+    >
+      <div className="kp-toast flex max-w-[92%] items-center gap-2.5 rounded-full border border-line bg-surface py-2.5 pl-2.5 pr-4 shadow-lg">
+        <span
+          className={`grid h-7 w-7 shrink-0 place-items-center rounded-full text-[14px] font-bold text-white ${
+            failed ? "bg-[#d93025]" : ok ? "bg-accent" : "bg-brand"
+          }`}
+        >
+          {failed ? "✕" : ok ? "✓" : "…"}
+        </span>
+        <p className="truncate text-[13px] font-semibold text-ink">{body}</p>
+      </div>
+    </div>
+  );
+}
 
 function SaveBar({ onSave }: { onSave: () => void }) {
   return (

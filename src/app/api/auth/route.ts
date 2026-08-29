@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import {
   SESSION_COOKIE,
-  checkPassword,
+  checkCredentials,
   createToken,
   isAuthed,
   sessionCookieOptions,
@@ -22,9 +22,10 @@ export async function POST(request: Request) {
     return Response.json({ ok: true, authed: false });
   }
 
-  if (!checkPassword(body?.password)) {
+  // One message for both halves — it must not reveal which one was wrong.
+  if (!checkCredentials(body?.email, body?.password)) {
     return Response.json(
-      { ok: false, error: "ভুল পাসওয়ার্ড / Wrong password" },
+      { ok: false, error: "ভুল ইমেইল বা পাসওয়ার্ড / Wrong email or password" },
       { status: 401 },
     );
   }

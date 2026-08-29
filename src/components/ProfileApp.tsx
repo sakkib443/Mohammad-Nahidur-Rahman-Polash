@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { AboutRow, Content, Fact } from "@/lib/types";
 import { AboutCard, FactGrid, OverviewCard } from "./Cards";
@@ -16,7 +17,7 @@ import NewsTab from "./NewsTab";
 import ReelsTab from "./ReelsTab";
 import ThemeToggle from "./ThemeToggle";
 import VideoTab from "./VideoTab";
-import { EyeIcon, ShareIcon, VerifiedIcon } from "./icons";
+import { EyeIcon, LockIcon, ShareIcon, VerifiedIcon } from "./icons";
 
 const TABS = ["Overview", "Images", "Videos", "Reels", "News"] as const;
 type Tab = (typeof TABS)[number];
@@ -191,6 +192,16 @@ export default function ProfileApp({
               <ShareIcon />
             </button>
             <ThemeToggle />
+            {/* Admin entrance. /admin is noindex and password-gated, so this
+                only saves the owner from typing the URL. */}
+            <Link
+              href="/admin"
+              aria-label="Admin panel"
+              title="Admin panel"
+              className="grid h-9 w-9 place-items-center rounded-full text-muted transition-colors hover:bg-surface-2 active:scale-95"
+            >
+              <LockIcon width={17} height={17} />
+            </Link>
           </div>
         </div>
 

@@ -27,6 +27,15 @@ export const ShareIcon = (props: IconProps) => (
   </svg>
 );
 
+/** Padlock — marks the admin entry point in the header. */
+export const LockIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round">
+    <rect x="4.2" y="10.2" width="15.6" height="10.4" rx="2.4" />
+    <path d="M8 10.2V7.6a4 4 0 0 1 8 0v2.6" />
+    <circle cx="12" cy="15.4" r="1.4" fill="currentColor" stroke="none" />
+  </svg>
+);
+
 export const MailIcon = (props: IconProps) => (
   <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round">
     <rect x="2.8" y="4.8" width="18.4" height="14.4" rx="2.4" />

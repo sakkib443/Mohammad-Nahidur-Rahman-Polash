@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 export function Field({
   label,
   value,
@@ -127,6 +129,68 @@ export function Row({
         </div>
       </div>
       {children}
+    </div>
+  );
+}
+
+/**
+ * Centred dialog for add/edit forms. Rendered only while open, so the fields
+ * inside reset themselves between openings without extra bookkeeping.
+ */
+export function Modal({
+  title,
+  onClose,
+  children,
+  footer,
+}: {
+  title: string;
+  onClose: () => void;
+  children: React.ReactNode;
+  footer?: React.ReactNode;
+}) {
+  // Esc closes, and the page behind must not scroll while the sheet is up.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = previous;
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
+        onClick={(e) => e.stopPropagation()}
+        className="max-h-[88dvh] w-full max-w-[440px] overflow-y-auto rounded-t-2xl border border-line bg-surface p-4 shadow-lg sm:rounded-2xl"
+      >
+        <div className="mb-3 flex items-center justify-between gap-2">
+          <h2 className="text-[14px] font-bold text-ink">{title}</h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-line text-[13px] text-muted"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="space-y-2.5">{children}</div>
+
+        {footer && <div className="mt-4 flex gap-2">{footer}</div>}
+      </div>
     </div>
   );
 }
