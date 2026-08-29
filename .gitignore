@@ -50,3 +50,6 @@ next-env.d.ts
 
 # photos uploaded through /admin (the 47 seed photos stay tracked)
 /public/gallery/upload-*
+
+# Admin password hash — server-side state, never in the repo.
+data/admin.json

@@ -53,6 +53,7 @@ export default function AdminApp() {
   const [section, setSection] = useState<Section>("Profile");
   const [data, setData] = useState<Loaded | null>(null);
   const [toast, setToast] = useState("");
+  const [changingPassword, setChangingPassword] = useState(false);
 
   const flash = useCallback((text: string) => {
     setToast(text);
@@ -203,6 +204,7 @@ export default function AdminApp() {
             <Link href="/" className="text-[12px] text-brand">
               View site
             </Link>
+            <Btn onClick={() => setChangingPassword(true)}>Password</Btn>
             <Btn onClick={logout}>Logout</Btn>
           </div>
         </div>
@@ -230,6 +232,13 @@ export default function AdminApp() {
       </header>
 
       <Toast text={toast} />
+
+      {changingPassword && (
+        <PasswordDialog
+          onClose={() => setChangingPassword(false)}
+          flash={flash}
+        />
+      )}
 
       <div className="space-y-3 p-4">
         {section === "Profile" && (
@@ -1006,6 +1015,110 @@ function Inbox({
 }
 
 /* --------------------------------- Save bar --------------------------------- */
+
+function PasswordDialog({
+  onClose,
+  flash,
+}: {
+  onClose: () => void;
+  flash: (text: string) => void;
+}) {
+  const [current, setCurrent] = useState("");
+  const [next, setNext] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  const mismatch = confirm.length > 0 && next !== confirm;
+  const ready = current && next.length >= 8 && next === confirm && !busy;
+
+  async function submit() {
+    setError("");
+    setBusy(true);
+    const res = await fetch("/api/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "change-password", current, next }),
+    });
+    const json = await res.json().catch(() => ({ ok: false }));
+    setBusy(false);
+
+    if (!json.ok) {
+      setError(json.error || "পাসওয়ার্ড বদলানো যায়নি");
+      return;
+    }
+    flash("✓ পাসওয়ার্ড বদলে গেছে");
+    onClose();
+  }
+
+  const field =
+    "w-full rounded-lg border border-line bg-surface-2 px-3 py-2.5 text-[13px] text-ink outline-none focus:border-brand";
+
+  return (
+    <Modal
+      title="পাসওয়ার্ড বদলান"
+      onClose={onClose}
+      footer={
+        <>
+          <Btn tone="primary" onClick={submit} disabled={!ready}>
+            {busy ? "হচ্ছে…" : "বদলে দিন"}
+          </Btn>
+          <Btn onClick={onClose}>বাতিল</Btn>
+        </>
+      }
+    >
+      <label className="block">
+        <span className="mb-1 block text-[11px] font-medium text-muted">
+          বর্তমান পাসওয়ার্ড
+        </span>
+        <input
+          type="password"
+          value={current}
+          onChange={(e) => setCurrent(e.target.value)}
+          autoComplete="current-password"
+          autoFocus
+          className={field}
+        />
+      </label>
+
+      <label className="block">
+        <span className="mb-1 block text-[11px] font-medium text-muted">
+          নতুন পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)
+        </span>
+        <input
+          type="password"
+          value={next}
+          onChange={(e) => setNext(e.target.value)}
+          autoComplete="new-password"
+          className={field}
+        />
+      </label>
+
+      <label className="block">
+        <span className="mb-1 block text-[11px] font-medium text-muted">
+          নতুন পাসওয়ার্ড আবার লিখুন
+        </span>
+        <input
+          type="password"
+          value={confirm}
+          onChange={(e) => setConfirm(e.target.value)}
+          autoComplete="new-password"
+          className={field}
+        />
+      </label>
+
+      {mismatch && (
+        <p className="text-[12px] text-[#d93025]">দুইটা পাসওয়ার্ড মিলছে না</p>
+      )}
+      {error && <p className="text-[12px] text-[#d93025]">{error}</p>}
+
+      <p className="pt-1 text-[11.5px] leading-relaxed text-muted">
+        বদলানোর পর অন্য কোনো ডিভাইসে খোলা থাকলে সেগুলো লগআউট হয়ে যাবে। এই
+        ব্রাউজারে আপনি লগইন থাকবেন।
+      </p>
+    </Modal>
+  );
+}
 
 /**
  * Floating confirmation for saves and uploads. `flash()` prefixes its text with
