@@ -1,6 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { isAuthed, unauthorized } from "@/lib/auth";
+import { blobEnabled, deleteBlobFile, putBlobFile } from "@/lib/blob";
+import { addGalleryPhotos, removeGalleryPhoto } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
 
@@ -45,6 +47,7 @@ export async function POST(request: Request) {
 
   const saved: string[] = [];
   const skipped: string[] = [];
+  const images: string[] = [];
 
   for (const file of files) {
     const kind = ALLOWED[file.type];
@@ -62,11 +65,27 @@ export async function POST(request: Request) {
     const rand = Math.random().toString(36).slice(2, 7);
     const name = `upload-${stamp}-${rand}${kind.ext}`;
 
-    await fs.mkdir(kind.dir, { recursive: true });
     const buffer = Buffer.from(await file.arrayBuffer());
-    await fs.writeFile(path.join(kind.dir, name), buffer);
-    saved.push(`${kind.urlBase}/${name}`);
+
+    if (blobEnabled()) {
+      // `urlBase` doubles as the Blob folder, so gallery and media stay apart.
+      const url = await putBlobFile(
+        `${kind.urlBase.slice(1)}/${name}`,
+        buffer,
+        file.type,
+      );
+      saved.push(url);
+    } else {
+      await fs.mkdir(kind.dir, { recursive: true });
+      await fs.writeFile(path.join(kind.dir, name), buffer);
+      saved.push(`${kind.urlBase}/${name}`);
+    }
+
+    if (kind.urlBase === "/gallery") images.push(saved[saved.length - 1]);
   }
+
+  // Blob has no folder to list, so every photo has to be recorded to show up.
+  await addGalleryPhotos(images);
 
   return Response.json({ ok: true, saved, skipped });
 }
@@ -77,6 +96,16 @@ export async function DELETE(request: Request) {
 
   const { searchParams } = new URL(request.url);
   const src = searchParams.get("src") || "";
+
+  // Blob-hosted files are absolute URLs; only ours may be deleted.
+  if (/^https?:\/\//.test(src)) {
+    if (!/^https:\/\/[a-z0-9-]+\.public\.blob\.vercel-storage\.com\//.test(src)) {
+      return Response.json({ ok: false, error: "Invalid path" }, { status: 400 });
+    }
+    await deleteBlobFile(src).catch(() => {});
+    await removeGalleryPhoto(src);
+    return Response.json({ ok: true });
+  }
 
   const match = src.match(/^\/(gallery|media)\/([^/\\]+)$/);
   if (!match) {
@@ -93,5 +122,6 @@ export async function DELETE(request: Request) {
   }
 
   await fs.unlink(target).catch(() => {});
+  await removeGalleryPhoto(src);
   return Response.json({ ok: true });
 }

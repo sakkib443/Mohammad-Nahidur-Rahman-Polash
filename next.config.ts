@@ -5,10 +5,14 @@ const nextConfig: NextConfig = {
   output: "standalone",
 
   images: {
-    // Every photo is local, so only the sizes this 440px-wide layout can use.
+    // Only the sizes this 440px-wide layout can actually use.
     imageSizes: [64, 96, 128, 220, 256, 384],
     deviceSizes: [440, 640, 880],
     formats: ["image/avif", "image/webp"],
+    // Photos uploaded after deployment live in Vercel Blob, not in public/.
+    remotePatterns: [
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+    ],
   },
 
   async headers() {

@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { cookies } from "next/headers";
+import { blobEnabled, readBlobJson, writeBlobJson } from "./blob";
 
 export const SESSION_COOKIE = "polash_admin";
 const MAX_AGE = 60 * 60 * 12; // 12 hours
@@ -13,22 +14,50 @@ const MAX_AGE = 60 * 60 * 12; // 12 hours
  * a fresh deploy works with nothing but environment variables.
  */
 const ADMIN_FILE = path.join(process.cwd(), "data", "admin.json");
+const BLOB_PATH = "data/admin.json";
 
 type AdminRecord = { salt: string; hash: string; updatedAt: string };
 
 export const MIN_PASSWORD_LENGTH = 8;
 
 let cached: AdminRecord | null | undefined;
+let cachedAt = 0;
+
+/**
+ * Serverless instances each hold their own cache, so a password changed on one
+ * would keep working on another until it cycled. Ten seconds bounds that
+ * without making every admin request pay for a Blob round trip.
+ */
+const CACHE_MS = 10_000;
+
+function cacheUsable(): boolean {
+  if (cached === undefined) return false;
+  return !blobEnabled() || Date.now() - cachedAt < CACHE_MS;
+}
+
+function normalise(parsed: Partial<AdminRecord> | null): AdminRecord | null {
+  if (!parsed || typeof parsed.salt !== "string" || typeof parsed.hash !== "string") {
+    return null;
+  }
+  return { salt: parsed.salt, hash: parsed.hash, updatedAt: parsed.updatedAt ?? "" };
+}
 
 async function readRecord(): Promise<AdminRecord | null> {
-  if (cached !== undefined) return cached;
+  if (cacheUsable()) return cached as AdminRecord | null;
+  cachedAt = Date.now();
+
+  if (blobEnabled()) {
+    try {
+      cached = normalise(await readBlobJson<Partial<AdminRecord>>(BLOB_PATH));
+    } catch {
+      cached = null;
+    }
+    return cached;
+  }
+
   try {
     const raw = await fs.readFile(ADMIN_FILE, "utf8");
-    const parsed = JSON.parse(raw) as Partial<AdminRecord>;
-    cached =
-      typeof parsed.salt === "string" && typeof parsed.hash === "string"
-        ? { salt: parsed.salt, hash: parsed.hash, updatedAt: parsed.updatedAt ?? "" }
-        : null;
+    cached = normalise(JSON.parse(raw) as Partial<AdminRecord>);
   } catch {
     cached = null;
   }
@@ -147,11 +176,16 @@ export async function setPassword(password: string): Promise<void> {
     hash: await scrypt(password, salt),
     updatedAt: new Date().toISOString(),
   };
-  await fs.mkdir(path.dirname(ADMIN_FILE), { recursive: true });
-  const tmp = `${ADMIN_FILE}.tmp`;
-  await fs.writeFile(tmp, JSON.stringify(record, null, 2), "utf8");
-  await fs.rename(tmp, ADMIN_FILE);
+  if (blobEnabled()) {
+    await writeBlobJson(BLOB_PATH, record);
+  } else {
+    await fs.mkdir(path.dirname(ADMIN_FILE), { recursive: true });
+    const tmp = `${ADMIN_FILE}.tmp`;
+    await fs.writeFile(tmp, JSON.stringify(record, null, 2), "utf8");
+    await fs.rename(tmp, ADMIN_FILE);
+  }
   cached = record;
+  cachedAt = Date.now();
 }
 
 export async function isAuthed(): Promise<boolean> {

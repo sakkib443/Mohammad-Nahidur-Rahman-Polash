@@ -13,6 +13,7 @@ import type {
   Stats,
   VideoItem,
 } from "./types";
+import { blobEnabled, readBlobJson, writeBlobJson } from "./blob";
 import {
   seedBooks,
   seedLinks,
@@ -34,17 +35,33 @@ async function ensureDir() {
 }
 
 async function readJson<T>(file: string, fallback: T): Promise<T> {
+  // On Vercel the deployed `data/` folder is the build-time snapshot, so Blob
+  // wins when it has the file and the bundled copy seeds the very first read.
+  if (blobEnabled()) {
+    try {
+      const stored = await readBlobJson<T>(`data/${file}`);
+      if (stored !== null) return stored;
+    } catch {
+      /* fall through to the bundled copy rather than blanking the site */
+    }
+  }
+
   try {
     const raw = await fs.readFile(path.join(DATA_DIR, file), "utf8");
     return JSON.parse(raw) as T;
   } catch {
     // First boot (or a corrupted file): seed it and carry on.
-    await writeJson(file, fallback);
+    await writeJson(file, fallback).catch(() => {});
     return fallback;
   }
 }
 
 async function writeJson<T>(file: string, value: T): Promise<void> {
+  if (blobEnabled()) {
+    await writeBlobJson(`data/${file}`, value);
+    return;
+  }
+
   const run = async () => {
     await ensureDir();
     const target = path.join(DATA_DIR, file);
@@ -84,8 +101,13 @@ export const saveMessages = (m: Message[]) => writeJson("messages.json", m);
  */
 export async function getGallery(): Promise<GalleryPhoto[]> {
   const meta = await readJson<GalleryPhoto[]>("gallery.json", []);
-  const byId = new Map(meta.map((m) => [m.id, m]));
 
+  // Blob storage has no folder to walk, and uploads register themselves in
+  // gallery.json, so the stored list is the whole truth there.
+  if (blobEnabled()) return meta;
+
+  // Locally the folder still drives things: drop a photo into public/gallery
+  // and it shows up without touching the admin panel.
   let files: string[] = [];
   try {
     files = await fs.readdir(GALLERY_DIR);
@@ -93,30 +115,44 @@ export async function getGallery(): Promise<GalleryPhoto[]> {
     files = [];
   }
 
-  const photos = files
+  const known = new Set(meta.map((m) => m.src));
+  const extras = files
     .filter((f) => IMAGE_EXT.has(path.extname(f).toLowerCase()))
-    .sort((a, b) => a.localeCompare(b, "en", { numeric: true }))
-    .map<GalleryPhoto>((f) => {
-      const id = f.replace(/\.[^.]+$/, "");
-      const existing = byId.get(id);
-      return {
-        id,
-        src: `/gallery/${f}`,
-        caption: existing?.caption ?? "",
-        hidden: existing?.hidden ?? false,
-      };
-    });
+    .map<GalleryPhoto>((f) => ({
+      id: f.replace(/\.[^.]+$/, ""),
+      src: `/gallery/${f}`,
+      caption: "",
+      hidden: false,
+    }))
+    .filter((p) => !known.has(p.src))
+    .sort((a, b) => a.id.localeCompare(b.id, "en", { numeric: true }));
 
-  // Keep the admin-defined order for known ids, append brand-new files at the end.
-  const order = new Map(meta.map((m, i) => [m.id, i]));
-  photos.sort((a, b) => {
-    const ai = order.has(a.id) ? order.get(a.id)! : Number.MAX_SAFE_INTEGER;
-    const bi = order.has(b.id) ? order.get(b.id)! : Number.MAX_SAFE_INTEGER;
-    if (ai !== bi) return ai - bi;
-    return a.id.localeCompare(b.id, "en", { numeric: true });
-  });
+  // Anything the admin has ordered keeps its place; new files land at the end.
+  return [...meta, ...extras];
+}
 
-  return photos;
+/** Appends freshly uploaded images, skipping any already listed. */
+export async function addGalleryPhotos(srcs: string[]): Promise<void> {
+  if (srcs.length === 0) return;
+  const current = await readJson<GalleryPhoto[]>("gallery.json", []);
+  const known = new Set(current.map((p) => p.src));
+
+  const added = srcs
+    .filter((src) => !known.has(src))
+    .map<GalleryPhoto>((src) => ({
+      id: (src.split("/").pop() ?? src).replace(/\.[^.]+$/, ""),
+      src,
+      caption: "",
+      hidden: false,
+    }));
+
+  if (added.length > 0) await writeJson("gallery.json", [...current, ...added]);
+}
+
+export async function removeGalleryPhoto(src: string): Promise<void> {
+  const current = await readJson<GalleryPhoto[]>("gallery.json", []);
+  const next = current.filter((p) => p.src !== src);
+  if (next.length !== current.length) await writeJson("gallery.json", next);
 }
 
 export const saveGallery = (g: GalleryPhoto[]) => writeJson("gallery.json", g);
