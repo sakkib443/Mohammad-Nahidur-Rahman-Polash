@@ -10,6 +10,18 @@ import { del, list, put } from "@vercel/blob";
  * project — see the deployment notes in README.md.
  */
 export function blobEnabled(): boolean {
+  // Connecting a store to a Vercel project now sets BLOB_STORE_ID and
+  // authenticates with OIDC; BLOB_READ_WRITE_TOKEN is the older, still-valid
+  // form. The SDK accepts either, so both count as "storage available".
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID);
+}
+
+/**
+ * Handing the browser an upload token needs a read-write token — the client
+ * helper in the SDK has no OIDC path. Without one, uploads have to go through
+ * the server and Vercel's 4.5 MB request body limit applies.
+ */
+export function blobClientUploads(): boolean {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 }
 

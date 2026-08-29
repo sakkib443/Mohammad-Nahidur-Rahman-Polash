@@ -22,19 +22,19 @@ const KINDS: Record<string, { ext: string; folder: "gallery" | "media"; max: num
 const mb = (bytes: number) => Math.round(bytes / 1024 / 1024);
 
 /**
- * Whether this deployment stores files in Blob. Asked once and remembered:
- * it cannot change without a redeploy.
+ * Whether this deployment can hand the browser its own upload token. Asked
+ * once and remembered: it cannot change without a redeploy.
  */
-let blobMode: boolean | null = null;
+let directMode: boolean | null = null;
 
-async function usesBlob(): Promise<boolean> {
-  if (blobMode === null) {
+async function uploadsDirect(): Promise<boolean> {
+  if (directMode === null) {
     const json = await fetch("/api/auth", { cache: "no-store" })
       .then((r) => r.json())
       .catch(() => ({}));
-    blobMode = Boolean(json?.blob);
+    directMode = Boolean(json?.blob);
   }
-  return blobMode;
+  return directMode;
 }
 
 /**
@@ -45,7 +45,7 @@ async function usesBlob(): Promise<boolean> {
 export async function uploadFiles(files: File[]): Promise<UploadResult> {
   if (files.length === 0) return { ok: true, saved: [], skipped: [] };
 
-  if (!(await usesBlob())) {
+  if (!(await uploadsDirect())) {
     const form = new FormData();
     files.forEach((f) => form.append("files", f));
     const res = await fetch("/api/upload", { method: "POST", body: form });

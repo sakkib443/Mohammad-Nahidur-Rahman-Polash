@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { isAuthed, unauthorized } from "@/lib/auth";
-import { blobEnabled, deleteBlobFile } from "@/lib/blob";
+import { blobEnabled, deleteBlobFile, putBlobFile } from "@/lib/blob";
 import { addGalleryPhotos, removeGalleryPhoto } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
@@ -28,22 +28,15 @@ const ALLOWED: Record<string, Kind> = {
 const mb = (bytes: number) => Math.round(bytes / 1024 / 1024);
 
 /**
- * Admin-only upload for hosts with a writable disk: images land in
- * `public/gallery`, videos in `public/media`.
+ * Admin-only upload: to `public/gallery` and `public/media` on a writable
+ * disk, otherwise to Blob.
  *
- * On Blob hosts the browser uploads directly instead — a Vercel function only
- * accepts a 4.5 MB request body, so anything bigger never gets here. See
- * /api/upload/client.
+ * Preferred only when the browser cannot upload on its own — a Vercel function
+ * accepts at most a 4.5 MB request body, so large files must take the direct
+ * route in /api/upload/client instead.
  */
 export async function POST(request: Request) {
   if (!(await isAuthed())) return unauthorized();
-
-  if (blobEnabled()) {
-    return Response.json(
-      { ok: false, error: "This host uploads from the browser" },
-      { status: 400 },
-    );
-  }
 
   const form = await request.formData().catch(() => null);
   if (!form) {
@@ -76,10 +69,22 @@ export async function POST(request: Request) {
     const name = `upload-${stamp}-${rand}${kind.ext}`;
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    await fs.mkdir(kind.dir, { recursive: true });
-    await fs.writeFile(path.join(kind.dir, name), buffer);
+    let src: string;
 
-    const src = `${kind.urlBase}/${name}`;
+    if (blobEnabled()) {
+      // Only reached when the browser has no upload token of its own, so this
+      // path is still bounded by the host's request body limit.
+      src = await putBlobFile(
+        `${kind.urlBase.slice(1)}/${name}`,
+        buffer,
+        file.type,
+      );
+    } else {
+      await fs.mkdir(kind.dir, { recursive: true });
+      await fs.writeFile(path.join(kind.dir, name), buffer);
+      src = `${kind.urlBase}/${name}`;
+    }
+
     saved.push(src);
     if (kind.urlBase === "/gallery") images.push(src);
   }
