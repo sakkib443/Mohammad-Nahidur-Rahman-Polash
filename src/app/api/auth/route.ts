@@ -36,13 +36,13 @@ export async function POST(request: Request) {
   if (body?.action === "change-password") {
     if (!(await isAuthed())) {
       return Response.json(
-        { ok: false, error: "আগে লগইন করুন" },
+        { ok: false, error: "Please log in first" },
         { status: 401 },
       );
     }
     if (!(await checkPassword(body?.current))) {
       return Response.json(
-        { ok: false, error: "বর্তমান পাসওয়ার্ড ভুল" },
+        { ok: false, error: "Current password is incorrect" },
         { status: 401 },
       );
     }
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
   // One message for both halves — it must not reveal which one was wrong.
   if (!(await checkCredentials(body?.email, body?.password))) {
     return Response.json(
-      { ok: false, error: "ভুল ইমেইল বা পাসওয়ার্ড / Wrong email or password" },
+      { ok: false, error: "Wrong email or password" },
       { status: 401 },
     );
   }

@@ -207,7 +207,7 @@ export function VideoUpload({
   return (
     <label className="block">
       <span className="mb-1 block text-[11px] font-medium text-muted">
-        অথবা ভিডিও ফাইল আপলোড করুন (সর্বোচ্চ ৬৪MB)
+        Or upload a video file (max 64MB)
       </span>
       <input
         type="file"
@@ -217,7 +217,7 @@ export function VideoUpload({
           if (!file) return;
           const input = e.currentTarget;
 
-          flash("আপলোড হচ্ছে…");
+          flash("Uploading…");
 
           const result = await uploadFiles([file]);
           input.value = "";
@@ -227,7 +227,7 @@ export function VideoUpload({
             return;
           }
           onUploaded(result.saved[0]);
-          flash("✓ ভিডিও আপলোড হয়েছে — এবার সেভ করুন");
+          flash("✓ Video uploaded — now save");
         }}
         className="w-full text-[12px] text-muted"
       />

@@ -1,8 +1,8 @@
 {
   "name": "Mohammad Nahidur Rahman Polash",
-  "nameBn": "মোহাম্মদ নাহিদুর রহমান পলাশ",
+  "nameBn": "",
   "headline": "Safety Officer & Author",
-  "headlineBn": "সেফটি অফিসার ও লেখক",
+  "headlineBn": "",
   "verified": true,
   "birthDate": "1993-07-14",
   "birthPlace": "Bangladesh",
@@ -15,7 +15,7 @@
     "/gallery/photo-07.jpg"
   ],
   "overview": "Mohammad Nahidur Rahman Polash (born 14 July 1993) is a Bangladeshi safety officer and author known for his work in workplace health, hazard identification, risk assessment and occupational safety standards. Based in Chattogram, he has published informational material and guides on safety practices and preventive workplace measures, and runs a YouTube channel sharing practical occupational health and safety guidance for workers.",
-  "overviewBn": "মোহাম্মদ নাহিদুর রহমান পলাশ (জন্ম ১৪ জুলাই ১৯৯৩) একজন বাংলাদেশি সেফটি অফিসার ও লেখক। কর্মক্ষেত্রের স্বাস্থ্য, ঝুঁকি চিহ্নিতকরণ ও নিরূপণ এবং পেশাগত নিরাপত্তা মানদণ্ড নিয়ে কাজের জন্য তিনি পরিচিত। চট্টগ্রামে অবস্থানরত এই পেশাজীবী নিরাপত্তা অনুশীলন ও দুর্ঘটনা প্রতিরোধ বিষয়ে তথ্যভিত্তিক লেখা ও গাইড প্রকাশ করেছেন, পাশাপাশি নিজের ইউটিউব চ্যানেলে শ্রমিকদের জন্য বাস্তবভিত্তিক পেশাগত স্বাস্থ্য ও নিরাপত্তা বিষয়ক পরামর্শ দিয়ে থাকেন।",
+  "overviewBn": "",
   "facts": [
     {
       "id": "f1",
@@ -106,7 +106,6 @@
   "website": "https://www.mohammadnahidurrahmanpolash.xyz/",
   "seoKeywords": [
     "Mohammad Nahidur Rahman Polash",
-    "মোহাম্মদ নাহিদুর রহমান পলাশ",
     "Safety Officer Bangladesh",
     "Nahidur Rahman Polash",
     "Chattogram Safety Officer",

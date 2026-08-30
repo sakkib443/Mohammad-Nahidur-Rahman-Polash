@@ -158,13 +158,13 @@ export async function checkCredentials(
 /** Rejects the obviously-weak choices; anything else is the owner's call. */
 export function passwordProblem(password: unknown): string | null {
   if (typeof password !== "string" || password.trim().length === 0) {
-    return "নতুন পাসওয়ার্ড দিন";
+    return "Enter a new password";
   }
   if (password !== password.trim()) {
-    return "পাসওয়ার্ডের শুরুতে বা শেষে ফাঁকা জায়গা রাখা যাবে না";
+    return "Password can't start or end with a space";
   }
   if (password.length < MIN_PASSWORD_LENGTH) {
-    return "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে";
+    return "Password must be at least 8 characters";
   }
   return null;
 }

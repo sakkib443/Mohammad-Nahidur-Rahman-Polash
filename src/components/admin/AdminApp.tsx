@@ -135,7 +135,7 @@ export default function AdminApp() {
       body: JSON.stringify(body),
     });
     const json = await res.json().catch(() => ({ ok: false }));
-    flash(json.ok ? `✓ ${label} সেভ হয়েছে` : `✕ ${json.error || "Save failed"}`);
+    flash(json.ok ? `✓ ${label} saved` : `✕ ${json.error || "Save failed"}`);
   }
 
   if (authed === null) {
@@ -152,7 +152,7 @@ export default function AdminApp() {
         <form onSubmit={login} className="kp-card w-full space-y-3 p-4">
           <h1 className="text-[15px] font-bold text-ink">Admin Login</h1>
           <p className="text-[12px] text-muted">
-            কন্টেন্ট এডিট করতে ইমেইল ও পাসওয়ার্ড দিন।
+            Enter your email and password to edit content.
           </p>
           <input
             type="email"
@@ -178,7 +178,7 @@ export default function AdminApp() {
             Log in
           </Btn>
           <Link href="/" className="block pt-1 text-center text-[12px] text-brand">
-            ← প্রোফাইলে ফিরে যান
+            ← Back to profile
           </Link>
         </form>
       </div>
@@ -246,21 +246,21 @@ export default function AdminApp() {
           <ProfileEditor
             profile={data.profile}
             onChange={(p) => set("profile", p)}
-            onSave={() => save("/api/profile", data.profile, "প্রোফাইল")}
+            onSave={() => save("/api/profile", data.profile, "Profile")}
           />
         )}
         {section === "Links" && (
           <LinksEditor
             links={data.links}
             onChange={(l) => set("links", l)}
-            onSave={(next) => save("/api/links", next ?? data.links, "লিংক")}
+            onSave={(next) => save("/api/links", next ?? data.links, "Links")}
           />
         )}
         {section === "Videos" && (
           <VideosEditor
             videos={data.videos}
             onChange={(v) => set("videos", v)}
-            onSave={() => save("/api/videos", data.videos, "ভিডিও")}
+            onSave={() => save("/api/videos", data.videos, "Videos")}
             flash={flash}
           />
         )}
@@ -268,7 +268,7 @@ export default function AdminApp() {
           <ReelsEditor
             reels={data.reels}
             onChange={(r) => set("reels", r)}
-            onSave={() => save("/api/reels", data.reels, "রিলস")}
+            onSave={() => save("/api/reels", data.reels, "Reels")}
             flash={flash}
           />
         )}
@@ -276,21 +276,21 @@ export default function AdminApp() {
           <NewsEditor
             news={data.news}
             onChange={(n) => set("news", n)}
-            onSave={() => save("/api/news", data.news, "নিউজ")}
+            onSave={() => save("/api/news", data.news, "News")}
           />
         )}
         {section === "Books" && (
           <BooksEditor
             books={data.books}
             onChange={(b) => set("books", b)}
-            onSave={() => save("/api/books", data.books, "বই")}
+            onSave={() => save("/api/books", data.books, "Books")}
           />
         )}
         {section === "Gallery" && (
           <GalleryEditor
             gallery={data.gallery}
             onChange={(g) => set("gallery", g)}
-            onSave={() => save("/api/gallery", data.gallery, "গ্যালারি")}
+            onSave={() => save("/api/gallery", data.gallery, "Gallery")}
             reload={loadAll}
             flash={flash}
           />
@@ -330,8 +330,8 @@ function ProfileEditor({
         <Field label="Birth date (YYYY-MM-DD)" type="date" value={profile.birthDate} onChange={(v) => patch({ birthDate: v })} />
         <Field label="Birth place" value={profile.birthPlace} onChange={(v) => patch({ birthPlace: v })} placeholder="Bangladesh" />
         <p className="text-[11px] leading-relaxed text-muted">
-          বয়সের কার্ড ও &ldquo;Born&rdquo; সারি এই তারিখ থেকে নিজে থেকেই হিসাব হয় —
-          প্রতি বছর আলাদা করে বদলাতে হবে না।
+          The age card and the &ldquo;Born&rdquo; row are worked out automatically
+          from this date — no need to update them each year.
         </p>
         <Field label="Location" value={profile.location} onChange={(v) => patch({ location: v })} />
         <Field label="Website" value={profile.website} onChange={(v) => patch({ website: v })} />
@@ -385,7 +385,7 @@ function ProfileEditor({
           </Row>
         ))}
         <Btn onClick={() => patch({ facts: [...profile.facts, { id: uid(), label: "", value: "", note: "" }] })}>
-          + Fact যোগ করুন
+          + Add fact
         </Btn>
       </div>
 
@@ -404,7 +404,7 @@ function ProfileEditor({
           </Row>
         ))}
         <Btn onClick={() => patch({ about: [...profile.about, { id: uid(), label: "", value: "" }] })}>
-          + About row যোগ করুন
+          + Add about row
         </Btn>
       </div>
 
@@ -468,7 +468,7 @@ function LinksEditor({
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-2">
         <p className="text-[13px] font-semibold text-ink">
-          লিংক <span className="font-normal text-muted">({links.length})</span>
+          Links <span className="font-normal text-muted">({links.length})</span>
         </p>
         <Btn tone="primary" onClick={openNew}>
           + Add new
@@ -479,7 +479,7 @@ function LinksEditor({
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="খুঁজুন — নাম, প্ল্যাটফর্ম বা URL"
+          placeholder="Search — name, platform or URL"
           className="w-full rounded-lg border border-line bg-surface-2 px-3 py-2 text-[13px] text-ink outline-none placeholder:text-muted focus:border-brand"
         />
       )}
@@ -538,7 +538,7 @@ function LinksEditor({
                 <button
                   type="button"
                   onClick={() => {
-                    if (confirm(`"${l.label || l.platform}" মুছে ফেলবেন?`)) {
+                    if (confirm(`Delete "${l.label || l.platform}"?`)) {
                       commit(links.filter((x) => x.id !== l.id));
                     }
                   }}
@@ -554,21 +554,21 @@ function LinksEditor({
 
         {shown.length === 0 && (
           <p className="py-6 text-center text-[12.5px] text-muted">
-            {links.length === 0 ? "কোনো লিংক নেই।" : "কিছু পাওয়া যায়নি।"}
+            {links.length === 0 ? "No links yet." : "Nothing found."}
           </p>
         )}
       </div>
 
       {draft && (
         <Modal
-          title={isNew ? "নতুন লিংক" : "লিংক এডিট"}
+          title={isNew ? "New link" : "Edit link"}
           onClose={() => setDraft(null)}
           footer={
             <>
               <Btn tone="primary" onClick={submit} disabled={!draft.url.trim()}>
-                {isNew ? "যোগ করুন" : "আপডেট করুন"}
+                {isNew ? "Add" : "Update"}
               </Btn>
-              <Btn onClick={() => setDraft(null)}>বাতিল</Btn>
+              <Btn onClick={() => setDraft(null)}>Cancel</Btn>
             </>
           }
         >
@@ -580,7 +580,7 @@ function LinksEditor({
               <PlatformIcon platform={draft.platform} size={20} />
             </span>
             <p className="text-[11.5px] text-muted">
-              গ্রিডে এই আইকনটাই দেখাবে।
+              This icon will show in the grid.
             </p>
           </div>
 
@@ -604,7 +604,7 @@ function LinksEditor({
           <Field
             label="Label"
             value={draft.label}
-            placeholder="যেমন — Facebook (2)"
+            placeholder="e.g. Facebook (2)"
             onChange={(v) => setDraft({ ...draft, label: v })}
           />
           <Field
@@ -620,7 +620,7 @@ function LinksEditor({
               checked={draft.featured}
               onChange={(e) => setDraft({ ...draft, featured: e.target.checked })}
             />
-            <span className="text-[12.5px] text-ink">গ্রিডে আগে দেখাবে</span>
+            <span className="text-[12.5px] text-ink">Show first in the grid</span>
           </label>
         </Modal>
       )}
@@ -647,9 +647,9 @@ function VideosEditor({
   return (
     <div className="space-y-2">
       <p className="text-[11.5px] leading-relaxed text-muted">
-        YouTube ভিডিওর জন্য শুধু ভিডিও আইডি দিন (youtu.be/<b>XXXXXXXX</b>)। নিজের
-        ফাইল হলে নিচের বাটন দিয়ে আপলোড করুন — ভিডিও তার নিজের মাপেই দেখাবে,
-        কোনো দিক কাটা যাবে না।
+        For a YouTube video just enter the video id (youtu.be/<b>XXXXXXXX</b>). For
+        your own file, upload it with the button below — the video shows at its own
+        size, with nothing cropped.
       </p>
       {videos.map((v, i) => (
         <Row
@@ -668,7 +668,7 @@ function VideosEditor({
         </Row>
       ))}
       <Btn onClick={() => onChange([...videos, { id: uid(), title: "", youtubeId: "", file: "", poster: "", date: "" }])}>
-        + ভিডিও যোগ করুন
+        + Add video
       </Btn>
       <SaveBar onSave={onSave} />
     </div>
@@ -694,12 +694,12 @@ function ReelsEditor({
   return (
     <div className="space-y-2">
       <p className="text-[11.5px] leading-relaxed text-muted">
-        ওয়েবসাইটেই মডালে চালাতে হলে দুটো উপায় — ভিডিও ফাইল আপলোড করুন,
-        অথবা <b>একক ভিডিওর</b> লিংক দিন (যেমন{" "}
+        To play inside a modal on the site there are two ways — upload a video file,
+        or give the link to a <b>single video</b> (e.g.{" "}
         <code>tiktok.com/@user/video/123…</code>,{" "}
-        <code>instagram.com/reel/ABC…</code>, YouTube Shorts)। প্রোফাইল লিংক
-        (<code>tiktok.com/@user</code>) দিলে TikTok/Instagram embed করতে দেয় না,
-        তাই সেটা অ্যাপে খুলবে।
+        <code>instagram.com/reel/ABC…</code>, YouTube Shorts). A profile link
+        (<code>tiktok.com/@user</code>) can't be embedded by TikTok/Instagram,
+        so it opens in the app instead.
       </p>
       {reels.map((r, i) => (
         <Row
@@ -729,7 +729,7 @@ function ReelsEditor({
         </Row>
       ))}
       <Btn onClick={() => onChange([...reels, { id: uid(), title: "", platform: "tiktok", url: "", thumb: "", file: "" }])}>
-        + রিল যোগ করুন
+        + Add reel
       </Btn>
       <SaveBar onSave={onSave} />
     </div>
@@ -769,7 +769,7 @@ function NewsEditor({
         </Row>
       ))}
       <Btn onClick={() => onChange([...news, { id: uid(), title: "", source: "", date: "", url: "", image: "", excerpt: "" }])}>
-        + নিউজ যোগ করুন
+        + Add news
       </Btn>
       <SaveBar onSave={onSave} />
     </div>
@@ -793,8 +793,8 @@ function BooksEditor({
   return (
     <div className="space-y-2">
       <p className="text-[11.5px] leading-relaxed text-muted">
-        প্রকাশিত বই ও গাইড। কভার না দিলে বইয়ের নামের আদ্যক্ষর দিয়ে
-        প্লেসহোল্ডার দেখাবে।
+        Published books and guides. If no cover is set, a placeholder shows the
+        first letter of the book's title.
       </p>
       {books.map((b, i) => (
         <Row
@@ -814,7 +814,7 @@ function BooksEditor({
         </Row>
       ))}
       <Btn onClick={() => onChange([...books, { id: uid(), title: "", subtitle: "", year: "", publisher: "", url: "", cover: "", description: "" }])}>
-        + বই যোগ করুন
+        + Add book
       </Btn>
       <SaveBar onSave={onSave} />
     </div>
@@ -852,28 +852,28 @@ function GalleryEditor({
     }
     flash(
       result.skipped.length > 0
-        ? `✓ ${result.saved.length}টি হয়েছে, ${result.skipped.length}টি বাদ`
-        : `✓ ${result.saved.length}টি ছবি আপলোড হয়েছে`,
+        ? `✓ ${result.saved.length} done, ${result.skipped.length} skipped`
+        : `✓ ${result.saved.length} photo(s) uploaded`,
     );
     if (fileRef.current) fileRef.current.value = "";
     await reload();
   }
 
   async function removePhoto(photo: GalleryPhoto) {
-    if (!confirm(`ছবিটি স্থায়ীভাবে মুছে ফেলবেন?\n${photo.src}`)) return;
+    if (!confirm(`Delete this photo permanently?\n${photo.src}`)) return;
     setBusy(true);
     await fetch(`/api/upload?src=${encodeURIComponent(photo.src)}`, {
       method: "DELETE",
     });
     setBusy(false);
-    flash("✓ ছবি মুছে ফেলা হয়েছে");
+    flash("✓ Photo deleted");
     await reload();
   }
 
   return (
     <div className="space-y-3">
       <div className="kp-card space-y-2 p-3">
-        <p className="text-[12px] font-semibold text-ink">নতুন ছবি আপলোড</p>
+        <p className="text-[12px] font-semibold text-ink">Upload new photos</p>
         <input
           ref={fileRef}
           type="file"
@@ -884,7 +884,7 @@ function GalleryEditor({
           className="w-full text-[12px] text-muted"
         />
         <p className="text-[11px] text-muted">
-          সর্বোচ্চ ৮MB প্রতি ছবি। আপলোড করা ছবি সরাসরি গ্যালারিতে যোগ হবে।
+          Max 8MB per image. Uploaded photos are added straight to the gallery.
         </p>
       </div>
 
@@ -923,7 +923,7 @@ function GalleryEditor({
                     )
                   }
                 />
-                লুকান
+                Hide
               </label>
               {i > 0 && (
                 <button type="button" onClick={() => onChange(move(gallery, i, i - 1))} className="rounded-full border border-line px-2 py-0.5 text-[11px] text-muted">↑</button>
@@ -937,7 +937,7 @@ function GalleryEditor({
                 disabled={busy}
                 className="rounded-full border border-[#d93025] px-2 py-0.5 text-[11px] text-[#d93025]"
               >
-                ডিলিট
+                Delete
               </button>
             </div>
           </div>
@@ -962,19 +962,19 @@ function Inbox({
 }) {
   async function remove(id?: string) {
     const url = id ? `/api/contact?id=${encodeURIComponent(id)}` : "/api/contact";
-    if (!id && !confirm("সব বার্তা মুছে ফেলবেন?")) return;
+    if (!id && !confirm("Delete all messages?")) return;
     const res = await fetch(url, { method: "DELETE" });
     const json = await res.json().catch(() => ({ ok: false }));
     if (json.ok) {
       onChange(json.data ?? []);
-      flash("✓ মুছে ফেলা হয়েছে");
+      flash("✓ Deleted");
     }
   }
 
   if (messages.length === 0) {
     return (
       <div className="kp-card px-4 py-10 text-center">
-        <p className="text-[13px] text-muted">কোনো বার্তা নেই · No messages</p>
+        <p className="text-[13px] text-muted">No messages</p>
       </div>
     );
   }
@@ -983,7 +983,7 @@ function Inbox({
     <div className="space-y-2">
       <div className="flex justify-end">
         <Btn tone="danger" onClick={() => remove()}>
-          সব মুছুন
+          Delete all
         </Btn>
       </div>
       {messages.map((m) => (
@@ -1045,10 +1045,10 @@ function PasswordDialog({
     setBusy(false);
 
     if (!json.ok) {
-      setError(json.error || "পাসওয়ার্ড বদলানো যায়নি");
+      setError(json.error || "Couldn't change password");
       return;
     }
-    flash("✓ পাসওয়ার্ড বদলে গেছে");
+    flash("✓ Password changed");
     onClose();
   }
 
@@ -1057,20 +1057,20 @@ function PasswordDialog({
 
   return (
     <Modal
-      title="পাসওয়ার্ড বদলান"
+      title="Change password"
       onClose={onClose}
       footer={
         <>
           <Btn tone="primary" onClick={submit} disabled={!ready}>
-            {busy ? "হচ্ছে…" : "বদলে দিন"}
+            {busy ? "Saving…" : "Change"}
           </Btn>
-          <Btn onClick={onClose}>বাতিল</Btn>
+          <Btn onClick={onClose}>Cancel</Btn>
         </>
       }
     >
       <label className="block">
         <span className="mb-1 block text-[11px] font-medium text-muted">
-          বর্তমান পাসওয়ার্ড
+          Current password
         </span>
         <input
           type="password"
@@ -1084,7 +1084,7 @@ function PasswordDialog({
 
       <label className="block">
         <span className="mb-1 block text-[11px] font-medium text-muted">
-          নতুন পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)
+          New password (at least 8 characters)
         </span>
         <input
           type="password"
@@ -1097,7 +1097,7 @@ function PasswordDialog({
 
       <label className="block">
         <span className="mb-1 block text-[11px] font-medium text-muted">
-          নতুন পাসওয়ার্ড আবার লিখুন
+          Re-enter new password
         </span>
         <input
           type="password"
@@ -1109,13 +1109,13 @@ function PasswordDialog({
       </label>
 
       {mismatch && (
-        <p className="text-[12px] text-[#d93025]">দুইটা পাসওয়ার্ড মিলছে না</p>
+        <p className="text-[12px] text-[#d93025]">The two passwords don't match</p>
       )}
       {error && <p className="text-[12px] text-[#d93025]">{error}</p>}
 
       <p className="pt-1 text-[11.5px] leading-relaxed text-muted">
-        বদলানোর পর অন্য কোনো ডিভাইসে খোলা থাকলে সেগুলো লগআউট হয়ে যাবে। এই
-        ব্রাউজারে আপনি লগইন থাকবেন।
+        After changing it, any other devices that are logged in will be signed out.
+        You'll stay logged in on this browser.
       </p>
     </Modal>
   );
@@ -1161,7 +1161,7 @@ function SaveBar({ onSave }: { onSave: () => void }) {
         onClick={onSave}
         className="w-full rounded-full bg-brand py-3 text-[13px] font-semibold text-white shadow-lg active:opacity-80"
       >
-        সেভ করুন · Save changes
+        Save changes
       </button>
     </div>
   );

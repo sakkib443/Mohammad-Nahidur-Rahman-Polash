@@ -157,7 +157,7 @@ export async function DELETE(request: Request) {
     const code = (error as NodeJS.ErrnoException).code;
     if (code !== "ENOENT") {
       return Response.json(
-        { ok: false, error: `ফাইলটি মুছতে পারিনি (${code ?? "error"})` },
+        { ok: false, error: `Couldn't delete the file (${code ?? "error"})` },
         { status: 500 },
       );
     }

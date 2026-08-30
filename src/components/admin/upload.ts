@@ -105,7 +105,7 @@ export async function uploadFiles(files: File[]): Promise<UploadResult> {
     for (const file of files) {
       const ready = file.type.startsWith("image/") ? await shrink(file) : file;
       if (ready.size > BODY_LIMIT) {
-        skipped.push(`${file.name} (${mb(file.size)}MB — এই হোস্টে সর্বোচ্চ 4MB)`);
+        skipped.push(`${file.name} (${mb(file.size)}MB — max 4MB on this host)`);
         continue;
       }
       form.append("files", ready);
