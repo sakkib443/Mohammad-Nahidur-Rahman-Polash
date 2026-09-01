@@ -53,3 +53,6 @@ next-env.d.ts
 
 # Admin password hash — server-side state, never in the repo.
 data/admin.json
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
