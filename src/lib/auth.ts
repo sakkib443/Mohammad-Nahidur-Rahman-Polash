@@ -74,7 +74,7 @@ function scrypt(password: string, salt: string): Promise<string> {
 }
 
 function adminEmail(): string {
-  return process.env.ADMIN_EMAIL || "admin@gmail.com";
+  return process.env.ADMIN_EMAIL || "mohammadnahidurrahmanpolashsa@gmail.com";
 }
 
 function adminPassword(): string {
