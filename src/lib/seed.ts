@@ -161,6 +161,14 @@ export const seedLinks: LinkItem[] = [
   { id: "l56", platform: "google", label: "Google Profile (3)", url: "https://share.google/c2PV2mceH0PEvyHpZ", featured: false },
   { id: "l57", platform: "facebook", label: "Facebook (2)", url: "https://www.facebook.com/share/1FFAbrgiCS/", featured: false },
   { id: "l58", platform: "x", label: "X (2)", url: "https://x.com/MohammaNahidur", featured: false },
+  { id: "l59", platform: "bluesky", label: "Bluesky", url: "https://bsky.app/profile/mohammadnahidurra.bsky.social", featured: false },
+  // A second Vimeo account (user261744793) — l12 is the other one (user255933032).
+  { id: "l60", platform: "vimeo", label: "Vimeo (2)", url: "https://vimeo.com/user261744793", featured: false },
+  { id: "l61", platform: "dailymotion", label: "Dailymotion", url: "https://www.dailymotion.com/user/dm_6aaeb4b8c4e35", featured: false },
+  { id: "l62", platform: "truthsocial", label: "Truth Social", url: "https://truthsocial.com/@MohammadNahidurRahmanPolashh", featured: false },
+  // share.google shortlink; the client's card showed a Vimeo source but it's kept
+  // verbatim and grouped with the other Google share links. Relabel if needed.
+  { id: "l63", platform: "google", label: "Google Profile (4)", url: "https://share.google/2Sl2jNUr6HLzhKaNh", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [

@@ -304,6 +304,27 @@ export const GoogleIcon = (props: IconProps) => (
   </svg>
 );
 
+/** Bluesky butterfly. */
+export const BlueskyIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="currentColor">
+    <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.299-1.664-.621-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z" />
+  </svg>
+);
+
+/** Dailymotion "d" — outer bowl with a counter cut out via even-odd. */
+export const DailymotionIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="currentColor" fillRule="evenodd" clipRule="evenodd">
+    <path d="M13.86 8.906c1.29 0 2.316.4 3.06 1.22V5.09l2.68-.57v13.72h-2.66v-1.03c-.68.83-1.7 1.24-3.06 1.24-1.3 0-2.4-.44-3.28-1.32-.88-.9-1.32-2.02-1.32-3.36 0-1.32.44-2.43 1.3-3.32.88-.9 1.95-1.34 3.24-1.34Zm.32 2.434c-.7 0-1.28.24-1.74.72-.44.46-.66 1.06-.66 1.78 0 .72.22 1.32.68 1.8.46.48 1.04.72 1.74.72.68 0 1.25-.24 1.72-.73.47-.48.7-1.08.7-1.8s-.23-1.3-.7-1.78c-.46-.48-1.03-.72-1.72-.72Z" />
+  </svg>
+);
+
+/** Truth Social — bold "T". */
+export const TruthSocialIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="currentColor">
+    <path d="M4.5 4.5H19.5V7.9H13.75V19.5H10.25V7.9H4.5Z" />
+  </svg>
+);
+
 export const GlobeIcon = (props: IconProps) => (
   <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.85}>
     <circle cx="12" cy="12" r="9" />
@@ -332,6 +353,9 @@ export const platformIcons: Record<
   reddit: RedditIcon,
   snapchat: SnapchatIcon,
   vimeo: VimeoIcon,
+  bluesky: BlueskyIcon,
+  dailymotion: DailymotionIcon,
+  truthsocial: TruthSocialIcon,
   tumblr: TumblrIcon,
   vk: VkIcon,
   blogger: BloggerIcon,
@@ -375,6 +399,9 @@ export const platformColors: Record<string, string> = {
   reddit: "#FF4500",
   snapchat: "#F7B500",
   vimeo: "#1AB7EA",
+  bluesky: "#0085FF",
+  dailymotion: "#0066DC",
+  truthsocial: "#5448EE",
   tumblr: "#36465D",
   vk: "#0077FF",
   blogger: "#FF5722",
