@@ -381,6 +381,7 @@ export const platformIcons: Record<
   gettr: GlobeIcon,
   barterhub: GlobeIcon,
   hobbyswap: GlobeIcon,
+  wnsocial: GlobeIcon,
   web: GlobeIcon,
 };
 
@@ -428,6 +429,7 @@ export const platformColors: Record<string, string> = {
   barterhub: "#0F9D8C",
   hobbyswap: "#7C4DFF",
   palsome: "#FF5E3A",
+  wnsocial: "#2563EB",
   web: "#1a73e8",
 };
 

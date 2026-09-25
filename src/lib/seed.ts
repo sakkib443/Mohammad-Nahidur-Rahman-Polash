@@ -169,6 +169,8 @@ export const seedLinks: LinkItem[] = [
   // share.google shortlink; the client's card showed a Vimeo source but it's kept
   // verbatim and grouped with the other Google share links. Relabel if needed.
   { id: "l63", platform: "google", label: "Google Profile (4)", url: "https://share.google/2Sl2jNUr6HLzhKaNh", featured: false },
+  // WNSocial profile; the URL redirects to wnsocial.com/mohammadnahidurrahmanpolash33.
+  { id: "l64", platform: "wnsocial", label: "WNSocial", url: "https://wnsocial.com/profile/502df9a6-e40b-431e-b25f-d7fc1393dcc9", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [
