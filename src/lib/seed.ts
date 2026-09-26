@@ -171,6 +171,8 @@ export const seedLinks: LinkItem[] = [
   { id: "l63", platform: "google", label: "Google Profile (4)", url: "https://share.google/2Sl2jNUr6HLzhKaNh", featured: false },
   // WNSocial profile; the URL redirects to wnsocial.com/mohammadnahidurrahmanpolash33.
   { id: "l64", platform: "wnsocial", label: "WNSocial", url: "https://wnsocial.com/profile/502df9a6-e40b-431e-b25f-d7fc1393dcc9", featured: false },
+  // Tango profile link with the client's ref_id, kept verbatim.
+  { id: "l65", platform: "tango", label: "Tango", url: "https://www.tango.me/mafiapenguin-265784?ref_id=YuXYWSqr", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [
