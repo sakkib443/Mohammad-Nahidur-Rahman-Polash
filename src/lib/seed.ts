@@ -173,6 +173,10 @@ export const seedLinks: LinkItem[] = [
   { id: "l64", platform: "wnsocial", label: "WNSocial", url: "https://wnsocial.com/profile/502df9a6-e40b-431e-b25f-d7fc1393dcc9", featured: false },
   // Tango profile link with the client's ref_id, kept verbatim.
   { id: "l65", platform: "tango", label: "Tango", url: "https://www.tango.me/mafiapenguin-265784?ref_id=YuXYWSqr", featured: false },
+  // Search-result links sent by the client, kept verbatim. The UK Yahoo URL ends mid-parameter ("yhs-aol_app_p") exactly as received.
+  { id: "l66", platform: "bing", label: "Bing Search", url: "https://www.bing.com/search?q=Mohammad+Nahidur+Rahman+Polash&FORM=HDRSC1&PC=SANSAAND&ssp=1&safesearch=moderate&setlang=en-gb&cc=xl", featured: false },
+  { id: "l67", platform: "yahoo", label: "Yahoo Search", url: "https://search.yahoo.com/search?p=Mohammad+Nahidur+Rahman+Polash&fr=uh3_entertainment_web&fr2=p%3Aent%2Cm%3Asb&.tsrc=uh3_entertainment_web", featured: false },
+  { id: "l68", platform: "yahoo", label: "Yahoo UK Search", url: "https://uk.search.yahoo.com/yhs/search?p=Mohammad+Nahidur+Rahman+Polash&hspart=aol&hsimp=yhs-aol_app_p", featured: false },
 ];
 
 export const seedVideos: VideoItem[] = [

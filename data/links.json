@@ -453,5 +453,26 @@
     "label": "Tango",
     "url": "https://www.tango.me/mafiapenguin-265784?ref_id=YuXYWSqr",
     "featured": false
+  },
+  {
+    "id": "l66",
+    "platform": "bing",
+    "label": "Bing Search",
+    "url": "https://www.bing.com/search?q=Mohammad+Nahidur+Rahman+Polash&FORM=HDRSC1&PC=SANSAAND&ssp=1&safesearch=moderate&setlang=en-gb&cc=xl",
+    "featured": false
+  },
+  {
+    "id": "l67",
+    "platform": "yahoo",
+    "label": "Yahoo Search",
+    "url": "https://search.yahoo.com/search?p=Mohammad+Nahidur+Rahman+Polash&fr=uh3_entertainment_web&fr2=p%3Aent%2Cm%3Asb&.tsrc=uh3_entertainment_web",
+    "featured": false
+  },
+  {
+    "id": "l68",
+    "platform": "yahoo",
+    "label": "Yahoo UK Search",
+    "url": "https://uk.search.yahoo.com/yhs/search?p=Mohammad+Nahidur+Rahman+Polash&hspart=aol&hsimp=yhs-aol_app_p",
+    "featured": false
   }
 ]

@@ -325,6 +325,22 @@ export const TruthSocialIcon = (props: IconProps) => (
   </svg>
 );
 
+/** Bing "b" — single-colour; the tile behind it carries Bing's teal. */
+export const BingIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="currentColor">
+    <path d="M6 2.5 10.2 4v10.6l6.2-3.3-3.4-1.4-1.7-4 7.9 2.8v5.1L10 20.5l-4-2.3Z" />
+  </svg>
+);
+
+/** Yahoo "Y!" wordmark. */
+export const YahooIcon = (props: IconProps) => (
+  <svg {...base(props)} fill="currentColor">
+    <path d="M2.5 6.5h4.3L9 11.9l2.2-5.4h4.3L11 14.2V19H7v-4.8Z" />
+    <path d="M17.2 6.5h2.8l-.5 7.2h-1.8Z" />
+    <circle cx="18.6" cy="17.4" r="1.5" />
+  </svg>
+);
+
 export const GlobeIcon = (props: IconProps) => (
   <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={1.85}>
     <circle cx="12" cy="12" r="9" />
@@ -383,6 +399,8 @@ export const platformIcons: Record<
   hobbyswap: GlobeIcon,
   wnsocial: GlobeIcon,
   tango: GlobeIcon,
+  bing: BingIcon,
+  yahoo: YahooIcon,
   web: GlobeIcon,
 };
 
@@ -432,6 +450,8 @@ export const platformColors: Record<string, string> = {
   palsome: "#FF5E3A",
   wnsocial: "#2563EB",
   tango: "#FF5B2E",
+  bing: "#008373",
+  yahoo: "#6001D2",
   web: "#1a73e8",
 };
 
