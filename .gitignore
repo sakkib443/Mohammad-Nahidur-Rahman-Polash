@@ -52,4 +52,8 @@ next-env.d.ts
 
 # Admin password hash — server-side state, never in the repo.
 data/admin.json
-config.bat
+
+# Environment files (secrets) - never commit
+.env
+.env.*
+!.env.example
